@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Health Tracker</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <section id="foodApp">
+  <div class="container">
+  <div class="row">
+    <header>
+      <h3>Today's Food entries: </h3>
+    </header>
+  </div>
+  <div class="row">
+  <div class="col-md-6">
+    <section id="daysection">
+      <div><h4><span id="date"></span></h4></div>
+      <table id="foodlist" class="table table-condensed table-hover">
+      </table>
+    </section>
+  </div>
+  <div class="col-md-6">
+
+    <section id="searchsection">
+      <input type="text" id="searchText">
+      <button id="btnfind" class="btn btn-default">Get</button>
+      <table id="searchresultlist" class="table table-condensed table-hover">
+      </table>
+    </section>
+
+    <footer id="footer">
+      Powered by <a href="www.nutritionix.com/api" >Nutritionix API</a>
+    </footer>
+  </div>
+  </div>
+  </div>
+
+  </section>
+
+  <script type="text/template" id="foodentry-template">
+    <td><%=item_name%></td>
+    <td class="text-right"><%=nf_calories%></td>
+    <td class="text-right"><%=nf_serving_size_qty%></td>
+    <td><%=nf_serving_size_unit%></td>
+    <td class="text-right"><%=nf_total_fat%></td>
+  </script>
+
+  <script type="text/template" id="searchresult-template">
+    <td><button id="btnadd" class="btn btn-small">+</button></td>
+    <td><%=item_name%></td>
+    <td class="text-right"><%=nf_calories%></td>
+    <td class="text-right"><%=nf_serving_size_qty%></td>
+    <td><%=nf_serving_size_unit%></td>
+    <td class="text-right"><%=nf_total_fat%></td>
+  </script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+<script src="js/lib/backbone.localStorage.js"></script>
+<script src="js/models/foodentry.js"></script>
+<script src="js/models/searchitem.js"></script>
+<script src="js/collections/searchlist.js"></script>
+<script src="js/collections/foodentrylist.js"></script>
+<script src="js/views/foodentryview.js"></script>
+<script src="js/views/searchitemview.js"></script>
+<script src="js/views/searchview.js"></script>
+<script src="js/views/dayview.js"></script>
+
+<script src="js/views/appview.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
