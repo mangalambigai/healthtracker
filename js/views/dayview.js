@@ -1,3 +1,6 @@
+/**
+ * Polyfill for Array.reduce
+ */
 // Production steps of ECMA-262, Edition 5, 15.4.4.21
 // Reference: http://es5.github.io/#x15.4.4.21
 if (!Array.prototype.reduce) {
@@ -29,7 +32,9 @@ if (!Array.prototype.reduce) {
     return value;
   };
 }
-
+/**
+ * Polyfill ends
+ */
 var app = app || {};
 
 $(function() {
@@ -48,9 +53,13 @@ $(function() {
     },
     render: function() {
       this.$date.html(new Date().toDateString());
-      var totalCalories = app.foodEntries.pluck('nf_calories').reduce(function(prev, curr) {
-        return prev + curr;
-      });
+      var totalCalories = 0;
+      if (app.foodEntries && app.foodEntries.length>0)
+      {
+        totalCalories = app.foodEntries.pluck('nf_calories').reduce(function(prev, curr) {
+          return prev + curr;
+        });
+      }
       this.$totalcalories.html(Math.round(totalCalories));
       // Returning the object is a good practice
       // that makes chaining possible
