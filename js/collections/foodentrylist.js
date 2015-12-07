@@ -4,8 +4,12 @@ $(function() {
 
   app.FoodEntryList = Backbone.Collection.extend({
     model: app.FoodEntry,
-    url:'',
-    localStorage: new Backbone.LocalStorage('healthtracker')
+    localStorage: new Backbone.LocalStorage('healthtracker'),
+    dailyTotal: function() {
+      return this.reduce(function(memo, value) {
+        return memo + value.get('nf_calories');
+      }, 0);
+    }
   });
   app.foodEntries = new app.FoodEntryList();
 });

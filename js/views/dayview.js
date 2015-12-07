@@ -1,40 +1,3 @@
-/**
- * Polyfill for Array.reduce
- */
-// Production steps of ECMA-262, Edition 5, 15.4.4.21
-// Reference: http://es5.github.io/#x15.4.4.21
-if (!Array.prototype.reduce) {
-  Array.prototype.reduce = function(callback /*, initialValue*/) {
-    'use strict';
-    if (this == null) {
-      throw new TypeError('Array.prototype.reduce called on null or undefined');
-    }
-    if (typeof callback !== 'function') {
-      throw new TypeError(callback + ' is not a function');
-    }
-    var t = Object(this), len = t.length >>> 0, k = 0, value;
-    if (arguments.length == 2) {
-      value = arguments[1];
-    } else {
-      while (k < len && !(k in t)) {
-        k++;
-      }
-      if (k >= len) {
-        throw new TypeError('Reduce of empty array with no initial value');
-      }
-      value = t[k++];
-    }
-    for (; k < len; k++) {
-      if (k in t) {
-        value = callback(value, t[k], k, t);
-      }
-    }
-    return value;
-  };
-}
-/**
- * Polyfill ends
- */
 var app = app || {};
 
 $(function() {
@@ -53,14 +16,8 @@ $(function() {
     },
     render: function() {
       this.$date.html(new Date().toDateString());
-      var totalCalories = 0;
-      if (app.foodEntries && app.foodEntries.length>0)
-      {
-        totalCalories = app.foodEntries.pluck('nf_calories').reduce(function(prev, curr) {
-          return prev + curr;
-        });
-      }
-      this.$totalcalories.html(Math.round(totalCalories));
+
+      this.$totalcalories.html(Math.round(app.foodEntries.dailyTotal()));
       // Returning the object is a good practice
       // that makes chaining possible
       return this;
