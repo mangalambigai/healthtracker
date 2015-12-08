@@ -5,6 +5,7 @@ $(function() {
   app.DayView = Backbone.View.extend({
     el: '#daysection',
     initialize: function() {
+      this.date = '';
       this.$list = $('#foodlist');
       this.$date = $('#date');
       this.$totalcalories = $('#totalcalories');
@@ -15,8 +16,7 @@ $(function() {
       this.collection.fetch();
     },
     render: function() {
-      this.$date.html(new Date().toDateString());
-
+      this.$date.html(this.date);
       this.$totalcalories.html(Math.round(app.foodEntries.dailyTotal()));
       // Returning the object is a good practice
       // that makes chaining possible
@@ -34,11 +34,17 @@ $(function() {
 
     // Add all items in the collection at once.
     addAll: function() {
+      console.log('addAll');
       this.$list.html('<tr><th>Item Name</th><th>Calories</th><th>Quantity</th><th>Unit</th><th>Fat</th></tr>');
       this.collection.each(this.addOne, this);
-    }
+    },
 
-    //TODO: save the day's data
+    setDate: function(date) {
+      this.date = date;
+      this.collection.setDate(date);
+      this.collection.fetch({reset: true});
+      this.render();
+    }
 
   });
 });
