@@ -4,6 +4,7 @@ $(function() {
   'use strict';
   app.SearchView = Backbone.View.extend({
     el: '#searchsection',
+    $el: $(this.el),
     initialize: function() {
       this.$searchText = $('#searchText');
       this.$btnfind = $('#btnfind');
@@ -17,6 +18,14 @@ $(function() {
     // The DOM events specific to an item.
     events: {
       'click #btnfind':'findFoods'
+    },
+
+    show: function() {
+      this.$el.show();
+    },
+
+    hide: function() {
+      this.$el.hide();
     },
 
     findFoods: function() {

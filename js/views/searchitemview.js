@@ -32,6 +32,8 @@ $(function() {
         nf_serving_size_unit: this.model.get('nf_serving_size_unit'),
         nf_total_fat: this.model.get('nf_total_fat'),
       });
+
+      app.searchView.hide();
     },
 
     // Re-render the item.

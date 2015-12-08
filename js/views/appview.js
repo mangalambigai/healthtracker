@@ -11,9 +11,11 @@ $(function() {
     el: '#foodApp',
     initialize: function() {
       app.searchView = new app.SearchView();
-      app.dayView = new app.DayView();
+      app.searchView.hide();
       app.$date = $('#dateinput');
-      app.$date.val(this.today());
+      var todaysDate = this.today();
+      app.$date.val(todaysDate);
+      app.dayView = new app.DayView({date:todaysDate});
     },
 
     events: { 'change #dateinput': 'dateChanged'},

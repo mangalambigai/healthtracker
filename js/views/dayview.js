@@ -5,7 +5,6 @@ $(function() {
   app.DayView = Backbone.View.extend({
     el: '#daysection',
     initialize: function() {
-      this.date = '';
       this.$list = $('#foodlist');
       this.$date = $('#date');
       this.$totalcalories = $('#totalcalories');
@@ -13,14 +12,24 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
+      this.collection.setDate(this.date);
       this.collection.fetch();
     },
+
+    events: {
+      'click #addMore':'addMore'
+    },
+
     render: function() {
       this.$date.html(this.date);
       this.$totalcalories.html(Math.round(app.foodEntries.dailyTotal()));
       // Returning the object is a good practice
       // that makes chaining possible
       return this;
+    },
+
+    addMore: function() {
+      app.searchView.show();
     },
 
     // Add a single item to the list by creating a view for it, and

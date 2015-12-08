@@ -6,7 +6,7 @@ $(function() {
 
     model: app.FoodEntry,
 
-    localStorage: new Backbone.LocalStorage('healthtracker'),
+//    localStorage: new Backbone.LocalStorage('healthtracker'),
 
     setDate: function(date) {
       this.localStorage = new Backbone.LocalStorage('healthtracker' + date);
