@@ -4,7 +4,7 @@ $(function() {
   'use strict';
   app.DayView = Backbone.View.extend({
     el: '#daysection',
-    initialize: function() {
+    initialize: function(param) {
       this.$list = $('#foodlist');
       this.$date = $('#date');
       this.$totalcalories = $('#totalcalories');
@@ -12,7 +12,8 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
-      this.collection.setDate(this.date);
+      this.date= param.date;
+      this.collection.setDate(param.date);
       this.collection.fetch();
     },
 
