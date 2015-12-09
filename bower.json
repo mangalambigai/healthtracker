@@ -1,0 +1,7 @@
+{
+  "name": "polymer-project",
+  "dependencies": {
+    "google-chart": "GoogleWebComponents/google-chart#1.0.0",
+    "paper-menu": "PolymerElements/paper-menu#1.0.0"
+  }
+}

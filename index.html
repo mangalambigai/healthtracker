@@ -2,11 +2,39 @@
 <html>
 <head>
     <meta charset="UTF-8">
+   <!-- 1. Load webcomponents-lite.min.js for polyfill support. -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js">
+    </script>
+
+    <!-- 2. Use an HTML Import to bring in some elements. -->
+    <link rel="import" href="bower_components/google-chart/google-chart.html">
     <title>Health Tracker</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+<!--bootstrap navbar-->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#healthtracker-navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="healthtracker-navbar">
+        <ul class="nav navbar-nav">
+          <li><a href="#">Edit Profile</a></li>
+          <li><a href="#">Day View</a></li>
+          <li><a href="#">Weekly View</a></li>
+          <li><a href="#">Monthly View</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!--end navbar-->
+
   <section id="foodApp">
   <div class="container">
   <div class="row">
@@ -19,8 +47,8 @@
     <input type="date" id="dateinput">
     <section id="daysection">
       <div>
-        <h4><span id="date"></span></h4>
-        <h3>Calories: <span id="totalcalories"></span></h3>
+        <h4>Food entries for <span id="date"></span>:</h4>
+        <h3>Total Calories: <span id="totalcalories"></span></h3>
       </div>
       <table id="foodlist" class="table table-condensed table-hover">
       </table>
@@ -31,6 +59,7 @@
   <div class="col-md-6 col-xs-12" id="searchsection">
 
     <section>
+      <h3> Type in a food to find:</h3>
       <input type="text" id="searchText">
       <button id="btnfind" class="btn btn-default">Get</button>
       <table id="searchresultlist" class="table table-condensed table-hover">
@@ -63,11 +92,11 @@
     <td class="text-right"><%=nf_total_fat%></td>
   </script>
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
 <script src="js/lib/backbone.localStorage.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/models/foodentry.js"></script>
 <script src="js/models/searchitem.js"></script>
 <script src="js/collections/searchlist.js"></script>
