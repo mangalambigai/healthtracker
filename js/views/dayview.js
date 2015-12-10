@@ -45,7 +45,7 @@ $(function() {
     // Add all items in the collection at once.
     addAll: function() {
       console.log('addAll');
-      this.$list.html('<tr><th>Item Name</th><th>Calories</th><th>Quantity</th><th>Unit</th><th>Fat</th></tr>');
+      this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="xshide">Quantity</th><th  class="xshide">Unit</th><th class="xshide">Fat</th></tr>');
       this.collection.each(this.addOne, this);
     },
 
