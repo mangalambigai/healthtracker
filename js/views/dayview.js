@@ -8,13 +8,19 @@ $(function() {
       this.$list = $('#foodlist');
       this.$date = $('#date');
       this.$totalcalories = $('#totalcalories');
-      this.collection = app.foodEntries;
+
+      this.date = param.date;
+
+      var dateentry= app.dayTotalList.get(this.date);
+      if (!dateentry)
+      {
+        dateentry = app.dayTotalList.create({id: this.date, foodlist: new app.FoodEntryList()});
+      }
+      this.collection = dateentry.foodlist;
+
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
-      this.date= param.date;
-      this.collection.setDate(param.date);
-      this.collection.fetch();
     },
 
     events: {
@@ -23,7 +29,7 @@ $(function() {
 
     render: function() {
       this.$date.html(this.date);
-      this.$totalcalories.html(Math.round(app.foodEntries.dailyTotal()));
+      this.$totalcalories.html(Math.round(this.collection.dailyTotal()));
       // Returning the object is a good practice
       // that makes chaining possible
       return this;
@@ -51,10 +57,26 @@ $(function() {
 
     setDate: function(date) {
       this.date = date;
-      this.collection.setDate(date);
+
+      var dateentry= app.dayTotalList.get(this.date);
+      if (!dateentry)
+      {
+        dateentry = app.dayTotalList.create({id: this.date, foodlist: new app.FoodEntryList()});
+      }
+      this.collection = dateentry.get('foodlist');
+
       this.collection.fetch({reset: true});
       this.render();
-    }
+    },
 
+    addFood: function(searchmodel) {
+        this.collection.create({
+        item_name: searchmodel.get('item_name'),
+        nf_calories: searchmodel.get('nf_calories'),
+        nf_serving_size_qty: searchmodel.get('nf_serving_size_qty'),
+        nf_serving_size_unit: searchmodel.get('nf_serving_size_unit'),
+        nf_total_fat: searchmodel.get('nf_total_fat'),
+      });
+    }
   });
 });

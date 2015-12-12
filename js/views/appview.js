@@ -15,7 +15,10 @@ $(function() {
       app.$date = $('#dateinput');
       var todaysDate = this.today();
       app.$date.val(todaysDate);
+      app.dayTotalList = new app.DayTotalList();
+
       app.dayView = new app.DayView({date:todaysDate});
+      app.dayTotalListView = new app.DayTotalListView();
     },
 
     events: { 'change #dateinput': 'dateChanged'},
@@ -40,7 +43,6 @@ $(function() {
       if (date<10)
         date = '0'+date;
       var ret = vtoday.getFullYear() + '-' + mon + '-' +date;
-      console.log(ret);
       return ret;
     }
   });

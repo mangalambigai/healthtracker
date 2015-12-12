@@ -25,14 +25,7 @@ $(function() {
     },
 
     addItem: function(){
-      app.foodEntries.create({
-        item_name: this.model.get('item_name'),
-        nf_calories: this.model.get('nf_calories'),
-        nf_serving_size_qty: this.model.get('nf_serving_size_qty'),
-        nf_serving_size_unit: this.model.get('nf_serving_size_unit'),
-        nf_total_fat: this.model.get('nf_total_fat'),
-      });
-
+      app.dayView.addFood(this.model);
       app.searchView.hide();
     },
 
