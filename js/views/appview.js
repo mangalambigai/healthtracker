@@ -17,8 +17,8 @@ $(function() {
       app.$date.val(todaysDate);
       app.dayTotalList = new app.DayTotalList();
 
-      app.dayView = new app.DayView({date:todaysDate});
-      app.dayTotalListView = new app.DayTotalListView();
+      app.foodListView = new app.FoodListView({date:todaysDate});
+//      app.dayTotalListView = new app.DayTotalListView();
     },
 
     events: { 'change #dateinput': 'dateChanged'},
@@ -31,7 +31,7 @@ $(function() {
     },
 
     dateChanged: function() {
-      app.dayView.setDate(app.$date.val());
+      app.foodListView.setDate(app.$date.val());
     },
 
     today: function() {

@@ -25,7 +25,7 @@ $(function() {
     },
 
     addItem: function(){
-      app.dayView.addFood(this.model);
+      app.foodListView.addFood(this.model);
       app.searchView.hide();
     },
 

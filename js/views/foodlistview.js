@@ -2,7 +2,7 @@ var app = app || {};
 
 $(function() {
   'use strict';
-  app.DayView = Backbone.View.extend({
+  app.FoodListView = Backbone.View.extend({
     el: '#daysection',
     initialize: function(param) {
       this.$list = $('#foodlist');
@@ -11,16 +11,17 @@ $(function() {
 
       this.date = param.date;
 
-      var dateentry= app.dayTotalList.get(this.date);
+/*      var dateentry= app.dayTotalList.get(this.date);
       if (!dateentry)
       {
-        dateentry = app.dayTotalList.create({id: this.date, foodlist: new app.FoodEntryList()});
+        dateentry = app.dayTotalList.create({id: this.date});
       }
-      this.collection = dateentry.foodlist;
+ */     this.collection = new app.FoodEntryList(null,{id:this.date});
 
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
+      this.collection.fetch();
     },
 
     events: {
@@ -50,7 +51,6 @@ $(function() {
 
     // Add all items in the collection at once.
     addAll: function() {
-      console.log('addAll');
       this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="xshide">Quantity</th><th  class="xshide">Unit</th><th class="xshide">Fat</th></tr>');
       this.collection.each(this.addOne, this);
     },
@@ -58,15 +58,29 @@ $(function() {
     setDate: function(date) {
       this.date = date;
 
-      var dateentry= app.dayTotalList.get(this.date);
+/*      var dateentry= app.dayTotalList.get(this.date);
       if (!dateentry)
       {
-        dateentry = app.dayTotalList.create({id: this.date, foodlist: new app.FoodEntryList()});
+        dateentry = app.dayTotalList.create({id: this.date, foodlist: new app.FoodEntryList(null, {date:this.date})});
       }
       this.collection = dateentry.get('foodlist');
+*/
 
-      this.collection.fetch({reset: true});
-      this.render();
+      this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="xshide">Quantity</th><th  class="xshide">Unit</th><th class="xshide">Fat</th></tr>');
+      this.$totalcalories.html('');
+      this.$date.html('');
+
+      this.collection = new app.FoodEntryList([],{id:this.date});
+      this.listenTo(this.collection, 'reset', this.addAll);
+      this.listenTo(this.collection, 'all', this.render);
+      this.listenTo(this.collection, 'add', this.addOne);
+      this.collection.fetch({reset: true, error: this.fetchError});
+    },
+
+    fetchError: function(collection, response, options){
+      console.log(response);
+      console.log(options);
+      console.log(collection);
     },
 
     addFood: function(searchmodel) {

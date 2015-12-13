@@ -8,7 +8,7 @@ app.DayTotalListView = Backbone.View.extend({
     this.listenTo(this.collection, 'add', this.addOne);
   },
   addOne: function(daytotal) {
-    var view= new DayTotalView({model: daytotal});
+    var view= new app.DayTotalView({model: daytotal});
     this.list.append(view.render().el);
   }
 });
