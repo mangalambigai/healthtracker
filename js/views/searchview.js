@@ -21,6 +21,8 @@ $(function() {
     },
 
     show: function() {
+      this.$searchText.val('');
+      this.$list.html('');
       this.$el.show();
     },
 
