@@ -16,7 +16,7 @@
 
 <body>
   <!--bootstrap navbar-->
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="nav navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#healthtracker-navbar">
@@ -27,18 +27,28 @@
       </div>
       <div class="collapse navbar-collapse" id="healthtracker-navbar">
         <ul class="nav navbar-nav">
-          <li><a href="#">Edit Profile</a>
+          <li><a href="#profile" data-toggle="tab">Profile</a>
           </li>
-          <li><a href="#foodApp">Day View</a>
+          <li><a href="#singleday" data-toggle="tab">Day View</a>
           </li>
-          <li><a href="#daytotal-section">Summary</a>
+          <li><a href="#summary" data-toggle="tab">Summary</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <!--end navbar-->
+  <div class="tab-content">
+  <div class="tab-pane" id="profile">
+    <section >
+      <h3>Edit Profile</h3>
+      <!--TODO: get height, weight, male/female and lifestyle from user
+       calculate calorie needs-->
 
+    </section>
+  </div>
+
+  <div class="tab-pane active" id="singleday">
   <section id="foodApp">
     <div class="container">
       <div class="row">
@@ -77,12 +87,19 @@
       </div>
     </div>
   </section>
+  </div>
 
+  <div class="tab-pane" id="summary">
   <!-- daily totals -->
   <section id="daytotal-section">
+    <!--TODO: insert the google chart-->
+    <h3>List of all days</h3>
     <table id="daytotal-list" class="table table-condensed table-hover">
     </table>
   </section>
+  </div>
+
+  </div>
 
   <script type="text/template" id="foodentry-template">
     <td>

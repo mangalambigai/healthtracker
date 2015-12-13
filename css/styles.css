@@ -8,3 +8,9 @@ tr.highlight td {
     display: none;
   }
 }
+
+/**This is to prevent bootstrap navbar from cutting top content**/
+
+@media (min-width: 981px) {
+  body { padding-top: 60px; }
+}
