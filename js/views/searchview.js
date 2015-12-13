@@ -17,7 +17,7 @@ $(function() {
 
     // The DOM events specific to an item.
     events: {
-      'click #btnfind':'findFoods'
+      'click #btnfind': 'findFoods'
     },
 
     show: function() {
@@ -32,7 +32,9 @@ $(function() {
 
     findFoods: function() {
       this.collection.setSearchString(this.$searchText.val());
-      this.collection.fetch({ reset: true });
+      this.collection.fetch({
+        reset: true
+      });
     },
 
     render: function() {
@@ -46,7 +48,7 @@ $(function() {
     addOne: function(nutritionix) {
       var view = new app.SearchItemView({
         model: nutritionix,
-        parse:true
+        parse: true
       });
       this.$list.append(view.render().el);
     },

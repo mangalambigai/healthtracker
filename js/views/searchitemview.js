@@ -10,9 +10,9 @@ $(function() {
     template: _.template($('#searchresult-template').html()),
     // The DOM events specific to an item.
     events: {
-      'click':'selectRow',
-      'dblclick':'addItem',
-      'click #btnadd':'addItem'
+      'click': 'selectRow',
+      'dblclick': 'addItem',
+      'click #btnadd': 'addItem'
     },
 
     // The View listens for changes to its model, re-rendering.
@@ -20,11 +20,11 @@ $(function() {
       this.listenTo(this.model, 'change', this.render);
     },
 
-    selectRow: function(){
+    selectRow: function() {
       this.$el.addClass('highlight').siblings().removeClass('highlight');
     },
 
-    addItem: function(){
+    addItem: function() {
       app.foodListView.addFood(this.model);
       app.searchView.hide();
     },

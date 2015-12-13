@@ -1,6 +1,5 @@
 var app = app || {};
 
 $(function() {
-  app.DayTotal = Backbone.Model.extend({
-  });
+  app.DayTotal = Backbone.Model.extend({});
 });

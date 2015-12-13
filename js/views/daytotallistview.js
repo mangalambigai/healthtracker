@@ -29,11 +29,12 @@ $(function() {
       //since daytotallist is an autoSync collection, addAll doesnt get fired,
       //set the table header manually
       var listtext = this.$list.html();
-      if (!listtext||listtext.trim().length===0)
-      {
+      if (!listtext || listtext.trim().length === 0) {
         this.$list.html('<tr><th>Date</th><th>Calories</th></tr>');
       }
-      var view= new app.DayTotalView({model: daytotal});
+      var view = new app.DayTotalView({
+        model: daytotal
+      });
       this.$list.append(view.render().el);
     }
   });

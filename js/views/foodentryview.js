@@ -9,8 +9,7 @@ $(function() {
 
     template: _.template($('#foodentry-template').html()),
 
-    events: {
-    },
+    events: {},
 
     initialize: function() {
       this.listenTo(this.model, 'change', this.render);
