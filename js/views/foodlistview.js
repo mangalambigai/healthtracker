@@ -11,12 +11,10 @@ $(function() {
 
       this.date = param.date;
 
-/*      var dateentry= app.dayTotalList.get(this.date);
-      if (!dateentry)
-      {
-        dateentry = app.dayTotalList.create({id: this.date});
-      }
- */     this.collection = new app.FoodEntryList(null,{id:this.date});
+      if(!app.dayTotalList.get(this.date))
+        app.dayTotalList.create({id: this.date, calories: 0});
+
+      this.collection = new app.FoodEntryList(null,{id:this.date});
 
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
@@ -58,14 +56,6 @@ $(function() {
     setDate: function(date) {
       this.date = date;
 
-/*      var dateentry= app.dayTotalList.get(this.date);
-      if (!dateentry)
-      {
-        dateentry = app.dayTotalList.create({id: this.date, foodlist: new app.FoodEntryList(null, {date:this.date})});
-      }
-      this.collection = dateentry.get('foodlist');
-*/
-
       this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="xshide">Quantity</th><th  class="xshide">Unit</th><th class="xshide">Fat</th></tr>');
       this.$totalcalories.html('');
       this.$date.html('');
@@ -74,6 +64,10 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
+
+      if (!app.dayTotalList.get(this.date))
+        app.dayTotalList.create({id: this.date, calories:0 });
+
       this.collection.fetch({reset: true, error: this.fetchError});
     },
 
@@ -91,6 +85,7 @@ $(function() {
         nf_serving_size_unit: searchmodel.get('nf_serving_size_unit'),
         nf_total_fat: searchmodel.get('nf_total_fat'),
       });
+      app.dayTotalList.set({id: this.date, calories:this.collection.dailyTotal()}, {remove: false});
     }
   });
 });

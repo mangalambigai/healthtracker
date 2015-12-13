@@ -4,6 +4,6 @@ $(function() {
 
   app.DayTotalList = Backbone.Firebase.Collection.extend({
     model: app.DayTotal,
-    url: 'https://flickering-torch-1240.firebaseio.com/food'
+    url: 'https://flickering-torch-1240.firebaseio.com/dates'
   });
 });
