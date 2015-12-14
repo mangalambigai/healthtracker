@@ -97,9 +97,15 @@
   <!-- daily totals -->
   <section id="daytotal-section">
     <!--TODO: insert the google chart-->
-    <h3>List of all days</h3>
-    <table id="daytotal-list" class="table table-condensed table-hover">
-    </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <h3>Daily Calorie Totals</h3>
+          <table id="daytotal-list" class="table table-condensed table-hover">
+          </table>
+        </div>
+      </div>
+    </div>
   </section>
   </div>
 
@@ -110,7 +116,7 @@
       <%=item_name%>
     </td>
     <td class="text-right">
-      <%=nf_calories%>
+      <%=Math.round(nf_calories)%>
     </td>
     <td class="text-right hidden-xs">
       <%=nf_serving_size_qty%>
@@ -119,7 +125,7 @@
       <%=nf_serving_size_unit%>
     </td>
     <td class="text-right hidden-xs">
-      <%=nf_total_fat%>
+      <%=Math.round(nf_total_fat)%>
     </td>
   </script>
 
@@ -131,7 +137,7 @@
       <%=item_name%>
     </td>
     <td class="text-right">
-      <%=nf_calories%>
+      <%=Math.round(nf_calories)%>
     </td>
     <td class="text-right">
       <%=nf_serving_size_qty%>
@@ -140,7 +146,7 @@
       <%=nf_serving_size_unit%>
     </td>
     <td class="text-right">
-      <%=nf_total_fat%>
+      <%=Math.round(nf_total_fat)%>
     </td>
   </script>
 
@@ -149,7 +155,7 @@
       <%=id%>
     </td>
     <td class="text-right">
-      <%=calories%>
+      <%=Math.round(calories)%>
     </td>
   </script>
 
