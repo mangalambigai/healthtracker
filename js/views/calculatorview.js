@@ -38,10 +38,10 @@ $(function() {
           4.7 * Number(this.$formHeight.val()) -
           4.7 * Number(this.$formAge.val());
       }
-      this.$bmr.html(bmr);
+      this.$bmr.html(Math.round(bmr));
 
       var calorie = bmr* this.$formActivity.val();
-      this.$calorie.html(calorie);
+      this.$calorie.html(Math.round(calorie));
     }
   });
 });
