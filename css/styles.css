@@ -2,13 +2,6 @@ tr.highlight td {
   background-color: darkgray;
 }
 
-@media screen and (max-width: 450px) {
-  th.xshide,
-  td.xshide {
-    display: none;
-  }
-}
-
 /**This is to prevent bootstrap navbar from cutting top content**/
 
 @media (min-width: 981px) {

@@ -387,6 +387,7 @@
     "tables.less",
     "forms.less",
     "buttons.less",
+    "responsive-utilities.less",
     "navs.less",
     "navbar.less",
     "component-animations.less",
@@ -397,5 +398,5 @@
     "tab.js",
     "collapse.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=66c8d828388d227dba82"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=61ca18ceacf1a3a20599"
 }
