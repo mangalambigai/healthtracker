@@ -21,6 +21,8 @@ $(function() {
         date: todaysDate
       });
       app.dayTotalListView = new app.DayTotalListView();
+
+      app.calculatorView = new app.CalculatorView();
     },
 
     events: {
