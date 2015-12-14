@@ -73,15 +73,9 @@ $(function() {
       this.listenTo(this.collection, 'add', this.addOne);
 
       if (!app.dayTotalList.get(this.date))
-        app.dayTotalList.create({
-          id: this.date,
-          calories: 0
-        });
-
-      this.collection.fetch({
-        reset: true,
-        error: this.fetchError
-      });
+        app.dayTotalList.create({ id: this.date, calories: 0 });
+      else
+        this.collection.fetch({ reset: true, error: this.fetchError });
     },
 
     fetchError: function(collection, response, options) {
@@ -92,6 +86,8 @@ $(function() {
 
     addFood: function(searchmodel) {
       this.collection.create({
+        brand_name: searchmodel.get('brand_name'),
+        item_id: searchmodel.get('item_id'),
         item_name: searchmodel.get('item_name'),
         nf_calories: searchmodel.get('nf_calories'),
         nf_serving_size_qty: searchmodel.get('nf_serving_size_qty'),
