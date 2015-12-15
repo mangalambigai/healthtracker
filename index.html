@@ -125,17 +125,16 @@
   <section id="foodApp">
     <div class="container">
       <div class="row">
-        <header>
-          <h3>Daily Food Entries: </h3>
-        </header>
-      </div>
-      <div class="row">
         <div class="col-md-6 col-xs-12">
-          <input type="date" id="dateinput">
+          <div class="row">
+            <header>
+              <h3>Choose a date: </h3>
+              <input type="date" id="dateinput">
+            </header>
+          </div>
           <section id="daysection">
             <div>
-              <h4>Food entries for <span id="date"></span>:</h4>
-              <h3>Total Calories: <span id="totalcalories"></span></h3>
+              <h3>Total Calories for <span id="date"></span>: <span id="totalcalories"></span></h3>
             </div>
             <table id="foodlist" class="table table-condensed table-hover">
             </table>
