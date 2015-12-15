@@ -7,17 +7,67 @@ $(function() {
     el:'#profile-section',
 
     initialize: function() {
+      this.$rowAge = $('#rowAge');
+      this.$rowWeight = $('#rowWeight');
+      this.$rowHeight = $('#rowHeight');
+
       this.$formAge = $('#formAge');
       this.$formWeight = $('#formWeight');
       this.$formHeight = $('#formHeight');
       this.$formGender = $('#formGender');
       this.$formActivity = $('#formActivity');
+
       this.$bmr = $('#bmr');
       this.$calorie = $('#calorie');
     },
 
     events: {
-      'click #calculate':'calculate'
+      'click #calculate': 'calculate',
+      'change #formAge': 'validateAge',
+      'change #formWeight': 'validateWeight',
+      'change #formHeight': 'validateHeight',
+    },
+
+    validateAge: function() {
+      var age = Number(this.$formAge.val());
+      if (age<1 || age>100)
+      {
+        this.$rowAge.removeClass('has-success');
+        this.$rowAge.addClass('has-error');
+      }
+      else
+      {
+        this.$rowAge.removeClass('has-error');
+        this.$rowAge.addClass('has-success');
+      }
+    },
+
+    validateWeight: function() {
+      var weight = Number(this.$formWeight.val());
+      if (weight<1 || weight>1000)
+      {
+        this.$rowWeight.removeClass('has-success');
+        this.$rowWeight.addClass('has-error');
+      }
+      else
+      {
+        this.$rowWeight.removeClass('has-error');
+        this.$rowWeight.addClass('has-success');
+      }
+    },
+
+    validateHeight: function() {
+      var height = Number(this.$formHeight.val());
+      if (height<1 || height>100)
+      {
+        this.$rowHeight.removeClass('has-success');
+        this.$rowHeight.addClass('has-error');
+      }
+      else
+      {
+        this.$rowHeight.removeClass('has-error');
+        this.$rowHeight.addClass('has-success');
+      }
     },
 
     calculate: function() {

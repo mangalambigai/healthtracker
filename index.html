@@ -31,9 +31,9 @@
       </div>
       <div class="collapse navbar-collapse" id="healthtracker-navbar">
         <ul class="nav navbar-nav">
-          <li><a href="#profile" data-toggle="tab">Profile</a>
+          <li><a href="#profile" data-toggle="tab">Calorie Needs</a>
           </li>
-          <li><a href="#singleday" data-toggle="tab">Day View</a>
+          <li><a href="#singleday" data-toggle="tab">Daily View</a>
           </li>
           <li><a href="#summary" data-toggle="tab">Summary</a>
           </li>
@@ -42,8 +42,13 @@
     </div>
   </nav>
   <!--end navbar-->
+
+  <!--tabs-->
   <div class="tab-content">
   <div class="tab-pane" id="profile">
+
+  <!-- calorie calculator -->
+  <!-- TODO: save profile to firebase-->
     <section id="profile-section">
       <div class="container">
         <div class="row">
@@ -52,23 +57,27 @@
           </header>
         </div>
 
-        <div class="row">
+        <div id="rowAge" class="row">
         <!--get height, weight, male/female and lifestyle from user
         calculate calorie needs-->
-          <label class="control-label" for="formAge">Age
-            <input id="formAge" class="form-control" type="number" placeholder="99" min="10" max="100" required>
+          <label for="formAge" class="control-label">Age
+            <input id="formAge" class="form-control" type="number" placeholder="0" min="10" max="100"
+            required aria-describedby="descAge">
+            <span id="descAge" class="help-block">Enter an age between 1 and 100</span>
           </label>
         </div>
 
-        <div class="row">
-          <label for="formWeight">Weight in lbs
-            <input id="formWeight" class="form-control" type="number" placeholder="100" min="10" max="300" required>
+        <div id="rowWeight" class="row">
+          <label for="formWeight" class="control-label">Weight in lbs
+            <input id="formWeight" class="form-control" type="number" placeholder="0" min="10" max="1000" required aria-describedby="descWeight">
+            <span id="descWeight" class="help-block">Enter a weight between 1 and 1000 lbs</span>
           </label>
         </div>
 
-        <div class="row">
+        <div id="rowHeight" class="row">
           <label for="formHeight">Height in inches
-            <input id="formHeight" class="form-control" type="number" placeholder="72" min="10" max="100" required>
+            <input id="formHeight" class="form-control" type="number" placeholder="0" min="10" max="100" required aria-describedby="descHeight">
+            <span id="descHeight" class="help-block">Enter a height between 1 and 100 inches</span>
           </label>
         </div>
 
@@ -111,6 +120,7 @@
     </section>
   </div>
 
+  <!--Daily entries-->
   <div class="tab-pane active" id="singleday">
   <section id="foodApp">
     <div class="container">
