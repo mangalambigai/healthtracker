@@ -38,6 +38,7 @@ $(function() {
 
     dateChanged: function() {
       app.foodListView.setDate(app.$date.val());
+      app.searchView.hide();
     },
 
     today: function() {
