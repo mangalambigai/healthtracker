@@ -11,12 +11,6 @@ $(function() {
 
       this.date = param.date;
 
-      if (!app.dayTotalList.get(this.date))
-        app.dayTotalList.create({
-          id: this.date,
-          calories: 0
-        });
-
       this.collection = new app.FoodEntryList(null, {
         id: this.date
       });
