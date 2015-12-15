@@ -127,15 +127,15 @@
       <div class="row">
         <div class="col-md-6 col-xs-12">
           <div class="row">
-            <header>
-              <h3>Choose a date: </h3>
-              <input type="date" id="dateinput">
-            </header>
+            <label for="dateinput" class="control-label">Choose a date:
+              <input type="date" id="dateinput" class="form-control">
+            </label>
           </div>
           <section id="daysection">
-            <div>
-              <h3>Total Calories for <span id="date"></span>: <span id="totalcalories"></span></h3>
-            </div>
+            <strong>
+              Total Calories for <span id="date"></span>:
+              <span id="totalcalories"></span>
+            </strong>
             <table id="foodlist" class="table table-condensed table-hover">
             </table>
             <button id="addMore" class="btn">Add a food</button>
@@ -145,8 +145,9 @@
         <div class="col-md-6 col-xs-12" id="searchsection">
 
           <section>
-            <h3> Type in a food to find:</h3>
-            <input type="text" id="searchText">
+            <label for="searchText" class="control-label"> Type in a food to find:
+              <input type="text" id="searchText" class="form-control">
+            </label>
             <button id="btnfind" class="btn btn-default">Get</button>
             <table id="searchresultlist" class="table table-condensed table-hover">
             </table>
