@@ -24,6 +24,8 @@ $(function() {
       this.$searchText.val('');
       this.$list.html('');
       this.$el.show();
+      this.$searchText.focus();
+      this.$searchText.get(0).scrollIntoView();
     },
 
     hide: function() {
