@@ -7,11 +7,88 @@ $(function() {
     el: $('#daytotal-section'),
 
     initialize: function() {
+      this.$chart = this.$('#chart');
       this.$list = this.$('#daytotal-list');
+      this.$weekpicker = this.$('#weekpicker');
+
       this.collection = app.dayTotalList;
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'add', this.addOne);
       this.listenTo(this.collection, 'all', this.render);
+
+      this.chartparam = '';
+    },
+
+    events: {
+      'change #weekpicker': 'weekChanged'
+    },
+
+    convertWeekToDates: function(week) {
+      var dates = [];
+      var y = week.slice(0, 4);
+      var w = week.slice(6);
+
+      //http://www.wufoo.com/html5/types/4-date.html
+      //A "week" goes from Monday to Sunday,
+      //with week 1 being the week containing the first Wednesday of the year,
+      //so could start on December 30 or even January 2.
+      //check the first day of January, if it is > wednesday, next week is week 1?
+      var firstDayOfYear = new Date(y, 0, 1);
+      var newYearDay = firstDayOfYear.getDay();
+      var w1start; //This is going to hold the first day of W1
+
+      if (newYearDay == 3) //Jan 1 was wednesday, week1 is the monday 2 days before
+        w1start = new Date(y - 1, 11, 30); //week 1 was dec 30th monday
+
+      if (newYearDay == 2) //Jan 1 was tuesday,
+        w1start = new Date(y - 1, 11, 31); //week1 is 31 Dec
+
+      if (newYearDay == 1) //Jan 1 was monday,
+        w1start = new Date(y, 0, 1); //week1 is 1st the monday
+
+      if (newYearDay == 0) //new year sunday
+        w1start = new Date(y, 0, 2); //week1 starts on Jan 2 the monday
+
+      if (newYearDay == 6) //new year is saturday
+        w1start = new Date(y, 0, 3); //week1 starts on Jan 3 the monday
+
+      if (newYearDay == 5) //new year is friday
+        w1start = new Date(y, 0, 4); //week1 starts on Jan 4 the monday
+
+      if (newYearDay == 4) //new year was a thursday
+        w1start = new Date(y, 11, 29); //week1 starts on Dec 29th the monday
+
+      //now add the weeks. valueOf gets milliseconds,
+      //so convert the number of weeks to milliseconds
+      //and add it to the first weeks monday
+      var d = w1start.valueOf() + (w - 1) * 7 * 24 * 60 * 60 * 1000;
+      for (var i = 0; i < 7; i++) {
+        //now convert these dates to the format of data in firebase
+        dates.push(app.getFormattedDate(new Date(d)));
+        d += 24 * 60 * 60 * 1000;
+      }
+      return dates;
+    },
+
+    weekChanged: function() {
+      var dates = this.convertWeekToDates(this.$weekpicker.val());
+      var chartparam = '';
+      dates.forEach(function(date) {
+        console.log(date);
+        var daytotal = app.dayTotalList.get(date);
+        if (daytotal) {
+          if (chartparam.length > 0)
+            chartparam += ",";
+          var calorie = daytotal.get('calories');
+          chartparam += '["' + date + '", ' + calorie + ']';
+        }
+      });
+      //console.log(chartparam);
+      if (chartparam.length > 0)
+        this.$chart.attr('data', '[["Dates","Calories"],' + chartparam + ']');
+      else
+        this.$chart.attr('data', '[["Dates","Calories"]]');
+
     },
 
     render: function() {
@@ -36,6 +113,12 @@ $(function() {
         model: daytotal
       });
       this.$list.append(view.render().el);
+
+      if (this.chartparam.length > 0)
+        this.chartparam += ","
+
+      this.chartparam += '["' + daytotal.id + '", ' + daytotal.get('calories') + ']';
+      this.$chart.attr('rows', '[' + this.chartparam + ']');
     }
   });
 });

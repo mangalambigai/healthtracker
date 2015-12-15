@@ -12,7 +12,8 @@
   </script>
 
   <!-- 2. Use an HTML Import to bring in some elements. -->
-  <!--link rel="import" href="bower_components/google-chart/google-chart.html"-->
+  <link rel="import" href="bower_components/google-chart/google-chart.html">
+
   <title>Health Tracker</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -165,9 +166,20 @@
   <div class="tab-pane" id="summary">
   <!-- daily totals -->
   <section id="daytotal-section">
-    <!--TODO: insert the google chart-->
+
     <div class="container">
       <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <label for="weekpicker" class="control-label">
+            Select a week:
+            <input id="weekpicker" type="week" min="2015-W40" class="form-control">
+          </label>
+          <google-chart id="chart" class="chart"
+            type='column'
+            options='{"title": "Total Daily Calories"}'
+            cols='[{"label":"Date", "type":"string"}, {"label":"Calories", "type":"number"}]'>
+          </google-chart>
+        </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
           <h3>Daily Calorie Totals</h3>
           <table id="daytotal-list" class="table table-condensed table-hover">

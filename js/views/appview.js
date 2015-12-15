@@ -42,15 +42,7 @@ $(function() {
     },
 
     today: function() {
-      var vtoday = new Date();
-      var mon = (new Number(vtoday.getMonth()) + 1);
-      if (mon < 10)
-        mon = '0' + mon;
-      var date = vtoday.getDate();
-      if (date < 10)
-        date = '0' + date;
-      var ret = vtoday.getFullYear() + '-' + mon + '-' + date;
-      return ret;
+      return app.getFormattedDate(new Date());
     }
   });
 });
