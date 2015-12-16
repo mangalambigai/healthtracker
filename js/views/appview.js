@@ -17,10 +17,11 @@ $(function() {
       app.$date.val(todaysDate);
       app.dayTotalList = new app.DayTotalList();
 
+      app.dayTotalListView = new app.DayTotalListView();
+
       app.foodListView = new app.FoodListView({
         date: todaysDate
       });
-      app.dayTotalListView = new app.DayTotalListView();
 
       app.calculatorView = new app.CalculatorView();
     },

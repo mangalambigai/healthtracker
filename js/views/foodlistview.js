@@ -18,7 +18,8 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
-      this.collection.fetch();
+      if (app.dayTotalList.get(this.date))
+        this.collection.fetch();
     },
 
     events: {
