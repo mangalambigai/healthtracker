@@ -18,11 +18,13 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
-//fetch throws error if the collection is not present,
-//but daytotallist doesnt have anything at this point.
-//TODO: handle error instead.
-//      if (app.dayTotalList.get(this.date))
-        this.collection.fetch();
+
+      //fetch throws error if the collection is not present,
+      this.collection.fetch({
+        error: function(model, response, options) {
+          console.log('Food list error: response: '+response);
+        }
+      });
     },
 
     events: {
