@@ -44,6 +44,9 @@ $(function() {
     // Add a single item to the list by creating a view for it, and
     // appending its element to the <ul>.
     addOne: function(data) {
+      if (this.$list.html().trim().length==0)
+        this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
+
       var view = new app.FoodEntryView({
         model: data
       });
