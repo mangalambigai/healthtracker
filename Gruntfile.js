@@ -11,7 +11,10 @@ module.exports = function(grunt) {
         },
         js : {
             src : [
-                'js/*'
+                'js/models/*.js',
+                'js/collections/*.js',
+                'js/views/*.js',
+                'js/*.js'
             ],
             dest : 'combined.js'
         }
