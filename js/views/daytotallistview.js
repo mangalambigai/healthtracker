@@ -5,6 +5,8 @@ $(function() {
 
   app.DayTotalListView = Backbone.View.extend({
 
+    self: this,
+
     el: $('#daytotal-section'),
 
     initialize: function() {
@@ -36,11 +38,52 @@ $(function() {
       self.dataFat.addColumn('number', 'Fat Calories');
       self.dataFat.addColumn('number', '20%');
       self.dataFat.addColumn('number', '35%');
+
+      // Set chart options
+      self.optionsCalorie = {
+        vAxis: {title: 'kiloCalories'},
+        hAxis: {title: 'Dates'},
+        seriesType: 'bars',
+        series:{1: {type: 'line'}}
+      };
+
+      self.optionsFat = {
+        vAxis: {title: 'kiloCalories'},
+        hAxis: {title: 'Dates'},
+        seriesType: 'bars',
+        series:{
+          1: {type: 'line'},
+          2: {type: 'line'}
+        }
+      };
+
+      //create trigger to resizeEnd event
+      $(window).resize( function() {
+        if(this.resizeTO) clearTimeout(this.resizeTO);
+        this.resizeTO = setTimeout(function() {
+            $(this).trigger('resizeEnd');
+        }, 500);
+      });
+
+      //redraw graph when window resize is completed
+      $(window).on('resizeEnd', function() {
+          self.redrawCharts();
+      });
     },
 
     events: {
       'change #weekpicker': 'weekChanged'
     },
+
+    redrawCharts: function() {
+      if (self.dataCalorie.getNumberOfRows()>0)
+        self.chartCalorie.draw(self.dataCalorie, self.optionsCalorie);
+      if (self.dataFat.getNumberOfRows()>0)
+        self.chartFat.draw(self.dataFat, self.optionsFat);
+    },
+
+
+
 
     convertWeekToDates: function(week) {
       var dates = [];
@@ -52,6 +95,9 @@ $(function() {
       //with week 1 being the week containing the first Wednesday of the year,
       //so could start on December 30 or even January 2.
       //check the first day of January, if it is > wednesday, next week is week 1?
+
+      //This logic can be refactored to be concise,
+      //but let's keep it verbose so it is easy for bug fixing!
       var firstDayOfYear = new Date(y, 0, 1);
       var newYearDay = firstDayOfYear.getDay();
       var w1start; //This is going to hold the first day of W1
@@ -128,31 +174,14 @@ $(function() {
         }
       });
 
-      // Set chart options
-      var optionsCalorie = {
-        title:'Calories for the week starting '+dates[0],
-        vAxis: {title: 'kiloCalories'},
-        hAxis: {title: 'Dates'},
-        seriesType: 'bars',
-        series:{1: {type: 'line'}}
-      };
+      self.optionsCalorie.title= 'Calories for the week starting '+dates[0];
+      self.optionsFat.title= 'Fat calories for the week starting '+dates[0];
 
-      var optionsFat = {
-        title:'Fat calories for the week starting '+dates[0],
-        vAxis: {title: 'kiloCalories'},
-        hAxis: {title: 'Dates'},
-        seriesType: 'bars',
-        series:{
-          1: {type: 'line'},
-          2: {type: 'line'}
-        }
-      };
+      // draw our chart, passing in some options.
+      self.chartCalorie.draw(this.dataCalorie, self.optionsCalorie);
 
-      // Instantiate and draw our chart, passing in some options.
-      self.chartCalorie.draw(this.dataCalorie, optionsCalorie);
-
-      // Instantiate and draw our chart, passing in some options.
-      self.chartFat.draw(this.dataFat, optionsFat);
+      // draw our chart, passing in some options.
+      self.chartFat.draw(this.dataFat, self.optionsFat);
     },
 
     render: function() {
