@@ -11,3 +11,14 @@ body {
 .help-block {
   font-weight: normal;
 }
+
+.form-horizontal {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.form-inline {
+  max-width: 300px;
+}
+

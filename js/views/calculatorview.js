@@ -26,13 +26,21 @@ $(function() {
 
     events: {
       'click #calculate': 'calculate',
-      'change #formAge': 'validateAge',
-      'change #formWeight': 'validateWeight',
-      'change #formHeight': 'validateHeight',
+      'keyup #formAge': 'validateAge',
+      'keyup #formWeight': 'validateWeight',
+      'keyup #formHeight': 'validateHeight',
+
+      'change #formAge': 'calculate',
+      'change #formWeight': 'calculate',
+      'change #formHeight': 'calculate',
+
+      'change #formGender': 'calculate',
+      'change #formActivity': 'calculate',
+      'click #submit': 'submit'
     },
 
-    validateAge: function() {
-      var age = Number(this.$formAge.val());
+    validateAge: function(event) {
+      var age = Number($(event.target).val());
       if (age<1 || age>100)
       {
         this.$rowAge.removeClass('has-success');
@@ -42,11 +50,12 @@ $(function() {
       {
         this.$rowAge.removeClass('has-error');
         this.$rowAge.addClass('has-success');
+        this.calculate();
       }
     },
 
     validateWeight: function() {
-      var weight = Number(this.$formWeight.val());
+      var weight = Number($(event.target).val());
       if (weight<1 || weight>1000)
       {
         this.$rowWeight.removeClass('has-success');
@@ -56,11 +65,12 @@ $(function() {
       {
         this.$rowWeight.removeClass('has-error');
         this.$rowWeight.addClass('has-success');
+        this.calculate();
       }
     },
 
     validateHeight: function() {
-      var height = Number(this.$formHeight.val());
+      var height = Number($(event.target).val());
       if (height<1 || height>100)
       {
         this.$rowHeight.removeClass('has-success');
@@ -70,6 +80,7 @@ $(function() {
       {
         this.$rowHeight.removeClass('has-error');
         this.$rowHeight.addClass('has-success');
+        this.calculate();
       }
     },
 
@@ -94,6 +105,18 @@ $(function() {
       var calorie = bmr * activity;
       this.$calorie.html(Math.round(calorie));
 
+    },
+
+    submit: function(event) {
+      var age = Number(this.$formAge.val());
+      var height = Number(this.$formHeight.val());
+      var weight = Number(this.$formWeight.val());
+      var gender = this.$formGender.val();
+      var activity = this.$formActivity.val();
+      var bmi = this.$bmi.html();
+      var bmr = this.$bmr.html();
+      var calorie = this.$calorie.html();
+
       this.model.set('age', age);
       this.model.set('height', height);
       this.model.set('weight', weight);
@@ -102,6 +125,7 @@ $(function() {
       this.model.set('bmi', bmi);
       this.model.set('bmr', bmr);
       this.model.set('calorie', calorie);
+      event.preventDefault();
     },
 
     render: function() {
