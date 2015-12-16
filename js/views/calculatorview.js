@@ -19,6 +19,7 @@ $(function() {
 
       this.$bmr = $('#bmr');
       this.$calorie = $('#calorie');
+      this.$bmi = $('#bmi');
 
       this.listenTo(this.model, 'change', this.render);
     },
@@ -81,10 +82,13 @@ $(function() {
       var gender = this.$formGender.val();
       var activity = this.$formActivity.val();
 
+      var bmi = (weight * 703) / (height * height);
+
       var bmr = (gender == 'M') ?
         (66 + 6.2 * weight + 12.7 * height - 6.76 * age) :
         (655.1 + 4.35 * weight + 4.7 * height - 4.7 * age);
 
+      this.$bmi.html(bmi);
       this.$bmr.html(Math.round(bmr));
 
       var calorie = bmr * activity;
@@ -95,6 +99,7 @@ $(function() {
       this.model.set('weight', weight);
       this.model.set('gender', gender);
       this.model.set('activity', activity);
+      this.model.set('bmi', bmi);
       this.model.set('bmr', bmr);
       this.model.set('calorie', calorie);
     },
@@ -106,6 +111,7 @@ $(function() {
       this.$formGender.val(this.model.get('gender'));
       this.$formActivity.val(this.model.get('activity'));
       this.$bmr.html(Math.round(this.model.get('bmr')));
+      this.$bmi.html(Math.round(this.model.get('bmi')));
       this.$calorie.html(Math.round(this.model.get('calorie')));
     }
   });
