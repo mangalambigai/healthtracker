@@ -3,7 +3,6 @@ app = app || {};
 $(function() {
   'use strict';
 
-
   app.DayTotalListView = Backbone.View.extend({
 
     el: $('#daytotal-section'),
@@ -109,7 +108,7 @@ $(function() {
     },
 
     addAll: function() {
-      this.$list.html('<tr><th>Date</th><th class="text-right">Calories</th></tr>');
+      this.$list.html('<tr><th>Date</th><th class="text-right">Calories</th><th class="text-right">Fat</th></tr>');
       this.collection.each(this.addOne, this);
     },
 
@@ -118,7 +117,7 @@ $(function() {
       //set the table header manually
       var listtext = this.$list.html();
       if (!listtext || listtext.trim().length === 0) {
-        this.$list.html('<tr><th>Date</th><th class="text-right">Calories</th></tr>');
+        this.$list.html('<tr><th>Date</th><th class="text-right">Calories</th><th class="text-right">Fat</th></tr>');
       }
       var view = new app.DayTotalView({
         model: daytotal

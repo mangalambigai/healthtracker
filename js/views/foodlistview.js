@@ -18,7 +18,10 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
-      if (app.dayTotalList.get(this.date))
+//fetch throws error if the collection is not present,
+//but daytotallist doesnt have anything at this point.
+//TODO: handle error instead.
+//      if (app.dayTotalList.get(this.date))
         this.collection.fetch();
     },
 
@@ -28,7 +31,7 @@ $(function() {
 
     render: function() {
       this.$date.html(this.date);
-      this.$totalcalories.html(Math.round(this.collection.dailyTotal()));
+      this.$totalcalories.html(Math.round(this.collection.dailyTotalCalories()));
       // Returning the object is a good practice
       // that makes chaining possible
       return this;
@@ -91,7 +94,8 @@ $(function() {
       });
       app.dayTotalList.set({
         id: this.date,
-        calories: this.collection.dailyTotal()
+        calories: this.collection.dailyTotalCalories(),
+        fat:this.collection.dailyTotalFat()
       }, {
         remove: false
       });
