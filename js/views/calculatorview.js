@@ -19,6 +19,8 @@ $(function() {
 
       this.$bmr = $('#bmr');
       this.$calorie = $('#calorie');
+
+      this.listenTo(this.model, 'change', this.render);
     },
 
     events: {
@@ -73,25 +75,38 @@ $(function() {
     calculate: function() {
  //men BMR = 66 + ( 6.2 x weight in pounds ) + ( 12.7 x height in inches ) – ( 6.76 x age in years )
 //women BMR = 655.1 + ( 4.35 x weight in pounds ) + ( 4.7 x height in inches ) - ( 4.7 x age in years )
-      var bmr = 0;
-      if (this.$formGender.val()=='M')
-      {
-        bmr = 66 +
-          6.2 * Number(this.$formWeight.val()) +
-          12.7 * Number(this.$formHeight.val()) -
-          6.76 * Number(this.$formAge.val());
-      }
-      else
-      {
-        bmr = 655.1 +
-          4.35 * Number(this.$formWeight.val()) +
-          4.7 * Number(this.$formHeight.val()) -
-          4.7 * Number(this.$formAge.val());
-      }
+      var age = Number(this.$formAge.val());
+      var height = Number(this.$formHeight.val());
+      var weight = Number(this.$formWeight.val());
+      var gender = this.$formGender.val();
+      var activity = this.$formActivity.val();
+
+      var bmr = (gender == 'M') ?
+        (66 + 6.2 * weight + 12.7 * height - 6.76 * age) :
+        (655.1 + 4.35 * weight + 4.7 * height - 4.7 * age);
+
       this.$bmr.html(Math.round(bmr));
 
-      var calorie = bmr* this.$formActivity.val();
+      var calorie = bmr * activity;
       this.$calorie.html(Math.round(calorie));
+
+      this.model.set('age', age);
+      this.model.set('height', height);
+      this.model.set('weight', weight);
+      this.model.set('gender', gender);
+      this.model.set('activity', activity);
+      this.model.set('bmr', bmr);
+      this.model.set('calorie', calorie);
+    },
+
+    render: function() {
+      this.$formAge.val(this.model.get('age'));
+      this.$formHeight.val(this.model.get('height'));
+      this.$formWeight.val(this.model.get('weight'));
+      this.$formGender.val(this.model.get('gender'));
+      this.$formActivity.val(this.model.get('activity'));
+      this.$bmr.html(Math.round(this.model.get('bmr')));
+      this.$calorie.html(Math.round(this.model.get('calorie')));
     }
   });
 });

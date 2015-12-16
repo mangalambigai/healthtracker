@@ -10,6 +10,9 @@ $(function() {
   app.AppView = Backbone.View.extend({
     el: '#foodApp',
     initialize: function() {
+      app.personDetails = new app.PersonDetails();
+      app.calculatorView = new app.CalculatorView({model: app.personDetails});
+
       app.searchView = new app.SearchView();
       app.searchView.hide();
       app.$date = $('#dateinput');
@@ -22,8 +25,6 @@ $(function() {
       app.foodListView = new app.FoodListView({
         date: todaysDate
       });
-
-      app.calculatorView = new app.CalculatorView();
     },
 
     events: {
