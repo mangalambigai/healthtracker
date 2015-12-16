@@ -10,7 +10,7 @@ $(function() {
     parse: function(response) {
       return response.hits;
     },
-    setSearchString(text) {
+    setSearchString: function(text) {
       this.url= nutritionixUrl + text + nutritionixParams;
     }
   });
