@@ -4,19 +4,9 @@
 
   ```bash
   $> npm install
-  $> bower install
   $> grunt
   ```
-2. To inspect the site, you need to run a local server. This is required for the proper functioning of polymer chart component.
-
-Add a website in IIS with the root directory or:
-
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
-
-3. Open a browser and launch index.html.
+2. Open a browser and launch index.html.
 
 ## Features:
 
@@ -29,4 +19,6 @@ Add a website in IIS with the root directory or:
 4. Data stored in Firebase
 
 5. Navigate between days
+
+6. Google charts for displaying weekly calorie totals
 
