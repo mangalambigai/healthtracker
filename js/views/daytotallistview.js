@@ -26,7 +26,7 @@ $(function() {
       self = app.dayTotalListView;
       self.chartCalorie = new google.visualization.ComboChart(document.getElementById('calorie-chart'));
       self.chartFat = new google.visualization.ComboChart(document.getElementById('fat-chart'));
-   // Create the data tables.
+      // Create the data tables.
       self.dataCalorie = new google.visualization.DataTable();
       self.dataFat = new google.visualization.DataTable();
 
@@ -41,33 +41,49 @@ $(function() {
 
       // Set chart options
       self.optionsCalorie = {
-        vAxis: {title: 'kiloCalories'},
-        hAxis: {title: 'Dates'},
+        vAxis: {
+          title: 'kiloCalories'
+        },
+        hAxis: {
+          title: 'Dates'
+        },
         seriesType: 'bars',
-        series:{1: {type: 'line'}}
+        series: {
+          1: {
+            type: 'line'
+          }
+        }
       };
 
       self.optionsFat = {
-        vAxis: {title: 'kiloCalories'},
-        hAxis: {title: 'Dates'},
+        vAxis: {
+          title: 'kiloCalories'
+        },
+        hAxis: {
+          title: 'Dates'
+        },
         seriesType: 'bars',
-        series:{
-          1: {type: 'line'},
-          2: {type: 'line'}
+        series: {
+          1: {
+            type: 'line'
+          },
+          2: {
+            type: 'line'
+          }
         }
       };
 
       //create trigger to resizeEnd event
-      $(window).resize( function() {
-        if(this.resizeTO) clearTimeout(this.resizeTO);
+      $(window).resize(function() {
+        if (this.resizeTO) clearTimeout(this.resizeTO);
         this.resizeTO = setTimeout(function() {
-            $(this).trigger('resizeEnd');
+          $(this).trigger('resizeEnd');
         }, 500);
       });
 
       //redraw graph when window resize is completed
       $(window).on('resizeEnd', function() {
-          self.redrawCharts();
+        self.redrawCharts();
       });
     },
 
@@ -76,9 +92,9 @@ $(function() {
     },
 
     redrawCharts: function() {
-      if (self.dataCalorie.getNumberOfRows()>0)
+      if (self.dataCalorie.getNumberOfRows() > 0)
         self.chartCalorie.draw(self.dataCalorie, self.optionsCalorie);
-      if (self.dataFat.getNumberOfRows()>0)
+      if (self.dataFat.getNumberOfRows() > 0)
         self.chartFat.draw(self.dataFat, self.optionsFat);
     },
 
@@ -135,9 +151,9 @@ $(function() {
       return dates;
     },
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
 
     weekChanged: function() {
       self = this;
@@ -165,17 +181,21 @@ $(function() {
           var calorie = daytotal.get('calories');
           var fat = daytotal.get('fat');
 
-          self.dataCalorie.addRows([[md, calorie, calorieNeeded]]);
+          self.dataCalorie.addRows([
+            [md, calorie, calorieNeeded]
+          ]);
 
           //each gram of fat is 9 kilocalories
           //https://en.wikipedia.org/wiki/Food_energy
           //20% to 35% of daily calories can come from fat.
-          self.dataFat.addRows([[md, 9 * fat, calorie20percent, calorie35percent]]);
+          self.dataFat.addRows([
+            [md, 9 * fat, calorie20percent, calorie35percent]
+          ]);
         }
       });
 
-      self.optionsCalorie.title= 'Calories for the week starting '+dates[0];
-      self.optionsFat.title= 'Fat calories for the week starting '+dates[0];
+      self.optionsCalorie.title = 'Calories for the week starting ' + dates[0];
+      self.optionsFat.title = 'Fat calories for the week starting ' + dates[0];
 
       // draw our chart, passing in some options.
       self.chartCalorie.draw(this.dataCalorie, self.optionsCalorie);

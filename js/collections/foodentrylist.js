@@ -5,7 +5,7 @@ $(function() {
   app.FoodEntryList = Backbone.Firebase.Collection.extend({
 
     model: app.FoodEntry,
-    autoSync:false,
+    autoSync: false,
 
     initialize: function(models, options) {
       this.id = options.id;

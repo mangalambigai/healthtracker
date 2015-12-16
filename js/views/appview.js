@@ -5,13 +5,14 @@ $(function() {
   // The Application
   // ---------------
 
-
   // Our overall **AppView** is the top-level piece of UI.
   app.AppView = Backbone.View.extend({
     el: '#foodApp',
     initialize: function() {
       app.personDetails = new app.PersonDetails();
-      app.calculatorView = new app.CalculatorView({model: app.personDetails});
+      app.calculatorView = new app.CalculatorView({
+        model: app.personDetails
+      });
 
       app.searchView = new app.SearchView();
       app.searchView.hide();

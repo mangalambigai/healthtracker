@@ -7,10 +7,10 @@
   <meta name="description" content="Food Tracker - Track calories">
   <meta name="author" content="Mangalambigai Sivaramakrishnan">
   <title>Health Tracker</title>
-<!-- build:css inline dist/combined.min.css -->
+  <!-- build:css inline dist/combined.min.css -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
-<!-- /build -->
+  <!-- /build -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
@@ -42,7 +42,7 @@
   <!--tabs-->
   <div class="tab-content">
     <div class="tab-pane" id="profile">
-  <!-- calorie calculator -->
+      <!-- calorie calculator -->
       <section id="profile-section">
         <header>
           <h3>Calculate your calorie needs:</h3>
@@ -52,129 +52,130 @@
 
         <form class="form-inline">
 
-        <div id="rowAge" class="form-group">
-          <label for="formAge" class="control-label">Age</label>
-          <input id="formAge" class="form-control" type="number" placeholder="0" min="10" max="100"
-            required aria-describedby="descAge">
-          <span id="descAge" class="help-block">Enter an age between 1 and 100</span>
-        </div>
-
-        <div id="rowWeight" class="form-group">
-          <label for="formWeight" class="control-label">Weight in lbs</label>
-          <input id="formWeight" class="form-control" type="number" placeholder="0" min="10" max="1000" required aria-describedby="descWeight">
-          <span id="descWeight" class="help-block">Enter a weight between 1 and 1000 lbs</span>
-        </div>
-
-        <div id="rowHeight" class="form-group">
-          <label for="formHeight">Height in inches</label>
-          <input id="formHeight" class="form-control" type="number" placeholder="0" min="10" max="100" required aria-describedby="descHeight">
-          <span id="descHeight" class="help-block">Enter a height between 1 and 100 inches</span>
-        </div>
-
-        <div class="form-group">
-          <label for="formGender">Gender</label>
-          <select id="formGender" class="form-control">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="formActivity">Activity Level</label>
-          <select id="formActivity" class="form-control">
-            <option value="1.2">Little to no exercise</option>
-            <option value="1.375">Light exercise (1–3 days per week)</option>
-            <option value="1.55">Moderate exercise (3–5 days per week)</option>
-            <option value="1.725">Heavy exercise (6–7 days per week)</option>
-            <option value="1.9">Very heavy exercise (twice per day</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="bmr">Basal Metabolic Rate:</label>
-          <p id="bmr" class="form-control-static"></p>
-        </div>
-
-        <div class="form-group">
-          <label for="calorie">Calories needed per day:</label>
-          <p id="calorie" class="form-control-static"></p>
-        </div>
-
-        <div class="form-group">
-          <label for="bmi">Body Mass Index:</label>
-          <p id="bmi"class="form-control-static"></p>
-        </div>
-
-        <button id="submit">Save</button>
-      </form>
-    </section>
-  </div>
-
-  <!--Daily entries-->
-  <div class="tab-pane active" id="singleday">
-  <section id="foodApp">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-xs-12">
-          <div class="row">
-            <label for="dateinput" class="control-label">Choose a date:
-              <input type="date" id="dateinput" class="form-control">
-            </label>
+          <div id="rowAge" class="form-group">
+            <label for="formAge" class="control-label">Age</label>
+            <input id="formAge" class="form-control" type="number" placeholder="0" min="10" max="100" required aria-describedby="descAge">
+            <span id="descAge" class="help-block">Enter an age between 1 and 100</span>
           </div>
-          <section id="daysection">
-            <strong>
+
+          <div id="rowWeight" class="form-group">
+            <label for="formWeight" class="control-label">Weight in lbs</label>
+            <input id="formWeight" class="form-control" type="number" placeholder="0" min="10" max="1000" required aria-describedby="descWeight">
+            <span id="descWeight" class="help-block">Enter a weight between 1 and 1000 lbs</span>
+          </div>
+
+          <div id="rowHeight" class="form-group">
+            <label for="formHeight">Height in inches</label>
+            <input id="formHeight" class="form-control" type="number" placeholder="0" min="10" max="100" required aria-describedby="descHeight">
+            <span id="descHeight" class="help-block">Enter a height between 1 and 100 inches</span>
+          </div>
+
+          <div class="form-group">
+            <label for="formGender">Gender</label>
+            <select id="formGender" class="form-control">
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="formActivity">Activity Level</label>
+            <select id="formActivity" class="form-control">
+              <option value="1.2">Little to no exercise</option>
+              <option value="1.375">Light exercise (1–3 days per week)</option>
+              <option value="1.55">Moderate exercise (3–5 days per week)</option>
+              <option value="1.725">Heavy exercise (6–7 days per week)</option>
+              <option value="1.9">Very heavy exercise (twice per day</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="bmr">Basal Metabolic Rate:</label>
+            <p id="bmr" class="form-control-static"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="calorie">Calories needed per day:</label>
+            <p id="calorie" class="form-control-static"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="bmi">Body Mass Index:</label>
+            <p id="bmi" class="form-control-static"></p>
+          </div>
+
+          <div class="form-group">
+            <button id="submit">Save</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!--Daily entries-->
+    <div class="tab-pane active" id="singleday">
+      <section id="foodApp">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <label for="dateinput" class="control-label">Choose a date:
+                  <input type="date" id="dateinput" class="form-control">
+                </label>
+              </div>
+              <section id="daysection">
+                <strong>
               Total Calories for <span id="date"></span>:
               <span id="totalcalories"></span>
             </strong>
-            <table id="foodlist" class="table table-condensed table-hover">
-            </table>
-            <button id="addMore" class="btn">Add a food</button>
-          </section>
+                <table id="foodlist" class="table table-condensed table-hover">
+                </table>
+                <button id="addMore" class="btn">Add a food</button>
+              </section>
+            </div>
+
+            <div class="col-md-6 col-xs-12" id="searchsection">
+
+              <section>
+                <label for="searchText" class="control-label"> Type in a food to find:
+                  <input type="text" id="searchText" class="form-control">
+                </label>
+                <button id="btnfind" class="btn btn-default">Get</button>
+                <table id="searchresultlist" class="table table-condensed table-hover">
+                </table>
+              </section>
+
+              <footer id="footer">
+                Powered by <a href="www.nutritionix.com/api">Nutritionix API</a>
+              </footer>
+            </div>
+          </div>
         </div>
-
-        <div class="col-md-6 col-xs-12" id="searchsection">
-
-          <section>
-            <label for="searchText" class="control-label"> Type in a food to find:
-              <input type="text" id="searchText" class="form-control">
-            </label>
-            <button id="btnfind" class="btn btn-default">Get</button>
-            <table id="searchresultlist" class="table table-condensed table-hover">
-            </table>
-          </section>
-
-          <footer id="footer">
-            Powered by <a href="www.nutritionix.com/api">Nutritionix API</a>
-          </footer>
-        </div>
-      </div>
+      </section>
     </div>
-  </section>
-  </div>
 
-  <div class="tab-pane" id="summary">
-  <!-- daily totals -->
-  <section id="daytotal-section">
+    <div class="tab-pane" id="summary">
+      <!-- daily totals -->
+      <section id="daytotal-section">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <label for="weekpicker" class="control-label">
-            Select a week:
-            <input id="weekpicker" type="week" min="2015-W40" class="form-control">
-          </label>
-          <div id="calorie-chart" class="chart"></div>
-          <div id="fat-chart" class="chart"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <label for="weekpicker" class="control-label">
+                Select a week:
+                <input id="weekpicker" type="week" min="2015-W40" class="form-control">
+              </label>
+              <div id="calorie-chart" class="chart"></div>
+              <div id="fat-chart" class="chart"></div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <h3>Daily Calorie Totals</h3>
+              <table id="daytotal-list" class="table table-condensed table-hover">
+              </table>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <h3>Daily Calorie Totals</h3>
-          <table id="daytotal-list" class="table table-condensed table-hover">
-          </table>
-        </div>
-      </div>
+      </section>
     </div>
-  </section>
-  </div>
 
   </div>
 
@@ -238,7 +239,7 @@
   <!-- BackboneFire -->
   <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
 
-<!-- build:js inline dist/combined.min.js -->
+  <!-- build:js inline dist/combined.min.js -->
   <script src="js/bootstrap.min.js"></script>
   <script src="js/models/foodentry.js"></script>
   <script src="js/models/searchitem.js"></script>
@@ -259,7 +260,7 @@
 
   <script src="js/views/appview.js"></script>
   <script src="js/app.js"></script>
-<!-- /build -->
+  <!-- /build -->
 
 </body>
 

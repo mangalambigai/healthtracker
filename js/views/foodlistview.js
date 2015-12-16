@@ -22,7 +22,7 @@ $(function() {
       //fetch throws error if the collection is not present,
       this.collection.fetch({
         error: function(model, response, options) {
-          console.log('Food list error: response: '+response);
+          console.log('Food list error: response: ' + response);
         }
       });
     },
@@ -46,7 +46,7 @@ $(function() {
     // Add a single item to the list by creating a view for it, and
     // appending its element to the <ul>.
     addOne: function(data) {
-      if (this.$list.html().trim().length==0)
+      if (this.$list.html().trim().length == 0)
         this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
 
       var view = new app.FoodEntryView({
@@ -76,9 +76,15 @@ $(function() {
       this.listenTo(this.collection, 'add', this.addOne);
 
       if (!app.dayTotalList.get(this.date))
-        app.dayTotalList.create({ id: this.date, calories: 0 });
+        app.dayTotalList.create({
+          id: this.date,
+          calories: 0
+        });
       else
-        this.collection.fetch({ reset: true, error: this.fetchError });
+        this.collection.fetch({
+          reset: true,
+          error: this.fetchError
+        });
     },
 
     fetchError: function(collection, response, options) {
@@ -100,7 +106,7 @@ $(function() {
       app.dayTotalList.set({
         id: this.date,
         calories: this.collection.dailyTotalCalories(),
-        fat:this.collection.dailyTotalFat()
+        fat: this.collection.dailyTotalFat()
       }, {
         remove: false
       });

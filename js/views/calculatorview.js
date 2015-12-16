@@ -4,7 +4,7 @@ $(function() {
   'use strict';
 
   app.CalculatorView = Backbone.View.extend({
-    el:'#profile-section',
+    el: '#profile-section',
 
     initialize: function() {
       this.$rowAge = $('#rowAge');
@@ -41,13 +41,10 @@ $(function() {
 
     validateAge: function(event) {
       var age = Number($(event.target).val());
-      if (age<1 || age>100)
-      {
+      if (age < 1 || age > 100) {
         this.$rowAge.removeClass('has-success');
         this.$rowAge.addClass('has-error');
-      }
-      else
-      {
+      } else {
         this.$rowAge.removeClass('has-error');
         this.$rowAge.addClass('has-success');
         this.calculate();
@@ -56,13 +53,10 @@ $(function() {
 
     validateWeight: function() {
       var weight = Number($(event.target).val());
-      if (weight<1 || weight>1000)
-      {
+      if (weight < 1 || weight > 1000) {
         this.$rowWeight.removeClass('has-success');
         this.$rowWeight.addClass('has-error');
-      }
-      else
-      {
+      } else {
         this.$rowWeight.removeClass('has-error');
         this.$rowWeight.addClass('has-success');
         this.calculate();
@@ -71,13 +65,10 @@ $(function() {
 
     validateHeight: function() {
       var height = Number($(event.target).val());
-      if (height<1 || height>100)
-      {
+      if (height < 1 || height > 100) {
         this.$rowHeight.removeClass('has-success');
         this.$rowHeight.addClass('has-error');
-      }
-      else
-      {
+      } else {
         this.$rowHeight.removeClass('has-error');
         this.$rowHeight.addClass('has-success');
         this.calculate();
@@ -85,8 +76,8 @@ $(function() {
     },
 
     calculate: function() {
- //men BMR = 66 + ( 6.2 x weight in pounds ) + ( 12.7 x height in inches ) – ( 6.76 x age in years )
-//women BMR = 655.1 + ( 4.35 x weight in pounds ) + ( 4.7 x height in inches ) - ( 4.7 x age in years )
+      //men BMR = 66 + ( 6.2 x weight in pounds ) + ( 12.7 x height in inches ) – ( 6.76 x age in years )
+      //women BMR = 655.1 + ( 4.35 x weight in pounds ) + ( 4.7 x height in inches ) - ( 4.7 x age in years )
       var age = Number(this.$formAge.val());
       var height = Number(this.$formHeight.val());
       var weight = Number(this.$formWeight.val());

@@ -11,7 +11,7 @@ $(function() {
       return response.hits;
     },
     setSearchString: function(text) {
-      this.url= nutritionixUrl + text + nutritionixParams;
+      this.url = nutritionixUrl + text + nutritionixParams;
     }
   });
 });
