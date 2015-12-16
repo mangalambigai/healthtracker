@@ -8,7 +8,7 @@ $(function() {
     el: $('#daytotal-section'),
 
     initialize: function() {
-      this.$chart = this.$('#chart');
+      this.$chartCalorie = this.$('#calorie-chart');
       this.$list = this.$('#daytotal-list');
       this.$weekpicker = this.$('#weekpicker');
 
@@ -76,29 +76,71 @@ $(function() {
       // draws it.
 
     weekChanged: function() {
-      // Create the data table.
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Dates');
-      data.addColumn('number', 'Calories');
+
+      var calorieNeeded = app.personDetails.get('calorie');
+      var calorie20percent = calorieNeeded * 0.2;
+      var calorie35percent = calorieNeeded * 0.35;
+
+   // Create the data tables.
+      var dataCalorie = new google.visualization.DataTable();
+      var dataFat = new google.visualization.DataTable();
+
+      dataCalorie.addColumn('string', 'Dates');
+      dataCalorie.addColumn('number', 'Calories');
+      dataCalorie.addColumn('number', 'Calories Needed');
+
+      dataFat.addColumn('string', 'Dates');
+      dataFat.addColumn('number', 'Fat Calories');
+      dataFat.addColumn('number', '20%');
+      dataFat.addColumn('number', '35%');
 
       var dates = this.convertWeekToDates(this.$weekpicker.val());
 
       dates.forEach(function(date) {
         var daytotal = app.dayTotalList.get(date);
         if (daytotal) {
+          //slice just month and date for display
+          var md = date.slice(5);
+
           var calorie = daytotal.get('calories');
-          data.addRows([[date,calorie]]);
+          var fat = daytotal.get('fat');
+
+          dataCalorie.addRows([[md, calorie, calorieNeeded]]);
+
+          //each gram of fat is 9 kilocalories
+          //https://en.wikipedia.org/wiki/Food_energy
+          //20% to 35% of daily calories can come from fat.
+          dataFat.addRows([[md, 9 * fat, calorie20percent, calorie35percent]]);
         }
       });
 
       // Set chart options
-      var options = {'title':'Calories for the week starting '+dates[0],
-                     'width':400,
-                     'height':300};
+      var optionsCalorie = {
+        title:'Calories for the week starting '+dates[0],
+        vAxis: {title: 'kiloCalories'},
+        hAxis: {title: 'Dates'},
+        seriesType: 'bars',
+        series:{1: {type: 'line'}}
+      };
+
+      var optionsFat = {
+        title:'Fat calories for the week starting '+dates[0],
+        vAxis: {title: 'kiloCalories'},
+        hAxis: {title: 'Dates'},
+        seriesType: 'bars',
+        series:{
+          1: {type: 'line'},
+          2: {type: 'line'}
+        }
+      };
 
       // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
-      chart.draw(data, options);
+      var chartCalorie = new google.visualization.ComboChart(document.getElementById('calorie-chart'));
+      chartCalorie.draw(dataCalorie, optionsCalorie);
+
+      // Instantiate and draw our chart, passing in some options.
+      var chartFat = new google.visualization.ComboChart(document.getElementById('fat-chart'));
+      chartFat.draw(dataFat, optionsFat);
     },
 
     render: function() {
