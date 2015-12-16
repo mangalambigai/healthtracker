@@ -6,17 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Food Tracker - Track calories">
   <meta name="author" content="Mangalambigai Sivaramakrishnan">
-
-  <!-- 1. Load webcomponents-lite.min.js for polyfill support. -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js">
-  </script>
-
-  <!-- 2. Use an HTML Import to bring in some elements. -->
-  <link rel="import" href="bower_components/google-chart/google-chart.html">
-
   <title>Health Tracker</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart']});
+//    google.charts.setOnLoadCallback(drawChart);
+  </script>
+
 </head>
 
 <body>
@@ -174,11 +172,7 @@
             Select a week:
             <input id="weekpicker" type="week" min="2015-W40" class="form-control">
           </label>
-          <google-chart id="chart" class="chart"
-            type='column'
-            options='{"title": "Total Daily Calories"}'
-            cols='[{"label":"Date", "type":"string"}, {"label":"Calories", "type":"number"}]'>
-          </google-chart>
+          <div id="chart" class="chart"></div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
           <h3>Daily Calorie Totals</h3>

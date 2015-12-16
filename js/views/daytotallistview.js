@@ -2,6 +2,8 @@ app = app || {};
 
 $(function() {
   'use strict';
+
+
   app.DayTotalListView = Backbone.View.extend({
 
     el: $('#daytotal-section'),
@@ -56,7 +58,7 @@ $(function() {
         w1start = new Date(y, 0, 4); //week1 starts on Jan 4 the monday
 
       if (newYearDay == 4) //new year was a thursday
-        w1start = new Date(y, 11, 29); //week1 starts on Dec 29th the monday
+        w1start = new Date(y - 1, 11, 29); //week1 starts on Dec 29th the monday
 
       //now add the weeks. valueOf gets milliseconds,
       //so convert the number of weeks to milliseconds
@@ -70,25 +72,34 @@ $(function() {
       return dates;
     },
 
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+
     weekChanged: function() {
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Dates');
+      data.addColumn('number', 'Calories');
+
       var dates = this.convertWeekToDates(this.$weekpicker.val());
-      var chartparam = '';
+
       dates.forEach(function(date) {
-        console.log(date);
         var daytotal = app.dayTotalList.get(date);
         if (daytotal) {
-          if (chartparam.length > 0)
-            chartparam += ",";
           var calorie = daytotal.get('calories');
-          chartparam += '["' + date + '", ' + calorie + ']';
+          data.addRows([[date,calorie]]);
         }
       });
-      //console.log(chartparam);
-      if (chartparam.length > 0)
-        this.$chart.attr('data', '[["Dates","Calories"],' + chartparam + ']');
-      else
-        this.$chart.attr('data', '[["Dates","Calories"]]');
 
+      // Set chart options
+      var options = {'title':'Calories for the week starting '+dates[0],
+                     'width':400,
+                     'height':300};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+      chart.draw(data, options);
     },
 
     render: function() {
@@ -113,12 +124,6 @@ $(function() {
         model: daytotal
       });
       this.$list.append(view.render().el);
-
-      if (this.chartparam.length > 0)
-        this.chartparam += ","
-
-      this.chartparam += '["' + daytotal.id + '", ' + daytotal.get('calories') + ']';
-      this.$chart.attr('rows', '[' + this.chartparam + ']');
     }
   });
 });
