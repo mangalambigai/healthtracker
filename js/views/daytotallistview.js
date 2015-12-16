@@ -20,6 +20,24 @@ $(function() {
       this.chartparam = '';
     },
 
+    initializeCharts: function() {
+      self = app.dayTotalListView;
+      self.chartCalorie = new google.visualization.ComboChart(document.getElementById('calorie-chart'));
+      self.chartFat = new google.visualization.ComboChart(document.getElementById('fat-chart'));
+   // Create the data tables.
+      self.dataCalorie = new google.visualization.DataTable();
+      self.dataFat = new google.visualization.DataTable();
+
+      self.dataCalorie.addColumn('string', 'Dates');
+      self.dataCalorie.addColumn('number', 'Calories');
+      self.dataCalorie.addColumn('number', 'Calories Needed');
+
+      self.dataFat.addColumn('string', 'Dates');
+      self.dataFat.addColumn('number', 'Fat Calories');
+      self.dataFat.addColumn('number', '20%');
+      self.dataFat.addColumn('number', '35%');
+    },
+
     events: {
       'change #weekpicker': 'weekChanged'
     },
@@ -76,25 +94,21 @@ $(function() {
       // draws it.
 
     weekChanged: function() {
+      self = this;
+      var dates = this.convertWeekToDates(this.$weekpicker.val());
 
       var calorieNeeded = app.personDetails.get('calorie');
       var calorie20percent = calorieNeeded * 0.2;
       var calorie35percent = calorieNeeded * 0.35;
 
-   // Create the data tables.
-      var dataCalorie = new google.visualization.DataTable();
-      var dataFat = new google.visualization.DataTable();
+      //clear the data
+      var numrows = this.dataCalorie.getNumberOfRows();
+      if (numrows > 0)
+        self.dataCalorie.removeRows(0, numrows);
 
-      dataCalorie.addColumn('string', 'Dates');
-      dataCalorie.addColumn('number', 'Calories');
-      dataCalorie.addColumn('number', 'Calories Needed');
-
-      dataFat.addColumn('string', 'Dates');
-      dataFat.addColumn('number', 'Fat Calories');
-      dataFat.addColumn('number', '20%');
-      dataFat.addColumn('number', '35%');
-
-      var dates = this.convertWeekToDates(this.$weekpicker.val());
+      numrows = this.dataFat.getNumberOfRows();
+      if (numrows > 0)
+        self.dataFat.removeRows(0, numrows);
 
       dates.forEach(function(date) {
         var daytotal = app.dayTotalList.get(date);
@@ -105,12 +119,12 @@ $(function() {
           var calorie = daytotal.get('calories');
           var fat = daytotal.get('fat');
 
-          dataCalorie.addRows([[md, calorie, calorieNeeded]]);
+          self.dataCalorie.addRows([[md, calorie, calorieNeeded]]);
 
           //each gram of fat is 9 kilocalories
           //https://en.wikipedia.org/wiki/Food_energy
           //20% to 35% of daily calories can come from fat.
-          dataFat.addRows([[md, 9 * fat, calorie20percent, calorie35percent]]);
+          self.dataFat.addRows([[md, 9 * fat, calorie20percent, calorie35percent]]);
         }
       });
 
@@ -135,12 +149,10 @@ $(function() {
       };
 
       // Instantiate and draw our chart, passing in some options.
-      var chartCalorie = new google.visualization.ComboChart(document.getElementById('calorie-chart'));
-      chartCalorie.draw(dataCalorie, optionsCalorie);
+      self.chartCalorie.draw(this.dataCalorie, optionsCalorie);
 
       // Instantiate and draw our chart, passing in some options.
-      var chartFat = new google.visualization.ComboChart(document.getElementById('fat-chart'));
-      chartFat.draw(dataFat, optionsFat);
+      self.chartFat.draw(this.dataFat, optionsFat);
     },
 
     render: function() {

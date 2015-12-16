@@ -18,4 +18,6 @@ $(function() {
 
   // kick things off by creating the `App`
   new app.AppView();
+  google.charts.load('current', {packages: ['corechart']});
+  google.charts.setOnLoadCallback(app.dayTotalListView.initializeCharts);
 });
