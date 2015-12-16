@@ -115,7 +115,7 @@ $(function() {
       var activity = this.$formActivity.val();
       var bmi = this.$bmi.html();
       var bmr = this.$bmr.html();
-      var calorie = this.$calorie.html();
+      var calorie = Number(this.$calorie.html());
 
       this.model.set('age', age);
       this.model.set('height', height);
