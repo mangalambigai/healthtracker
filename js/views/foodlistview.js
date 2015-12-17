@@ -27,13 +27,21 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
+      this.listenTo(this.collection, 'error', this.error);
 
-      //fetch throws error if the collection is not present,
+      //fetch throws exception if the collection is not present,
       this.collection.fetch({
         error: function(model, response, options) {
           console.log('Food list error: response: ' + response);
         }
       });
+    },
+
+    /**
+     * Handles collection errors
+     **/
+    error: function(collection, response, options) {
+      console.log('here');
     },
 
     events: {
