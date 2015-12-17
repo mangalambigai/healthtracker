@@ -44,12 +44,12 @@
     <div class="tab-pane" id="profile">
       <!-- calorie calculator -->
       <section id="profile-section">
+        <div class="container">
         <header>
           <h3>Calculate your calorie needs:</h3>
         </header>
         <!--get height, weight, male/female and lifestyle from user
         calculate calorie needs-->
-
         <form class="form-inline">
 
           <div id="rowAge" class="form-group">
@@ -90,7 +90,7 @@
           </div>
 
           <div class="form-group">
-            <label for="bmr">Basal Metabolic Rate:</label>
+            <label for="bmr">Basal Metabolic Rate (BMR):</label>
             <p id="bmr" class="form-control-static"></p>
           </div>
 
@@ -100,14 +100,21 @@
           </div>
 
           <div class="form-group">
-            <label for="bmi">Body Mass Index:</label>
+            <label for="bmi">Body Mass Index (BMI):</label>
             <p id="bmi" class="form-control-static"></p>
           </div>
 
-          <div class="form-group">
-            <button id="submit" disabled>Save</button>
-          </div>
+          <p>
+            <div class="form-group">
+              <button id="submit" class="btn btn-primary" disabled>Save</button>
+            </div>
+          </p>
+
+          <p>
+            Calculations are based on: <a href="https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation">Harris Benedict Equation</a>
+          </p>
         </form>
+        </div>
       </section>
     </div>
 
@@ -129,7 +136,7 @@
             </strong>
                 <table id="foodlist" class="table table-condensed table-hover">
                 </table>
-                <button id="addMore" class="btn">Add a food</button>
+                <button id="addMore" class="btn btn-primary">Add a food</button>
               </section>
             </div>
 
@@ -161,11 +168,12 @@
           <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
               <label for="weekpicker" class="control-label">
-                Select a week:
+                Select a week to view charts:
                 <input id="weekpicker" type="week" min="2015-W40" class="form-control">
               </label>
               <div id="calorie-chart" class="chart"></div>
               <div id="fat-chart" class="chart"></div>
+              <p id="fatRecommendation" class="hidden">Dietary guidelines suggest that healthy adults generally limit dietary fat to no more than 20 to 35 percent of total daily calories.</p>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <h3>Daily Calorie Totals</h3>

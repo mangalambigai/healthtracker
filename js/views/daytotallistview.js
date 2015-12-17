@@ -247,6 +247,7 @@ $(function() {
 
       // draw our chart, passing in some options.
       self.chartFat.draw(this.dataFat, self.optionsFat);
+      $('#fatRecommendation').removeClass('hidden');
     },
 
     /**
