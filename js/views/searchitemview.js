@@ -2,6 +2,9 @@ var app = app || {};
 
 $(function() {
   'use strict';
+  /**
+   * View for individual food items in search result
+   **/
   app.SearchItemView = Backbone.View.extend({
     //... is a tr tag.
     tagName: 'tr',
@@ -15,21 +18,32 @@ $(function() {
       'click #btnadd': 'addItem'
     },
 
-    // The View listens for changes to its model, re-rendering.
+    /**
+     * Initializes the view
+     **/
     initialize: function() {
+      //The View listens for changes to its model, re-rendering.
       this.listenTo(this.model, 'change', this.render);
     },
 
+    /**
+     * Highlights the selected row
+     **/
     selectRow: function() {
       this.$el.addClass('highlight').siblings().removeClass('highlight');
     },
 
+    /**
+     * Adds the food item to the day's list
+     **/
     addItem: function() {
       app.foodListView.addFood(this.model);
       app.searchView.hide();
     },
 
-    // Re-render the item.
+    /**
+     * Re-render the item.
+     **/
     render: function() {
       if (this.model.changed.id !== undefined) {
         return;

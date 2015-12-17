@@ -3,12 +3,19 @@ app = app || {};
 $(function() {
   'use strict';
 
+  /**
+   * Represents the Summary tab
+   * holds the charts and the daily totals table
+   **/
   app.DayTotalListView = Backbone.View.extend({
 
     self: this,
 
     el: $('#daytotal-section'),
 
+    /**
+     * Initializes the DayTotalListView
+     **/
     initialize: function() {
       this.$chartCalorie = this.$('#calorie-chart');
       this.$list = this.$('#daytotal-list');
@@ -18,10 +25,13 @@ $(function() {
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'add', this.addOne);
       this.listenTo(this.collection, 'all', this.render);
-
-      this.chartparam = '';
     },
 
+    /**
+     * Initializes the charts, data and options
+     * Call this only when the chart package is loaded
+     * Rows are not loaded yet.
+     **/
     initializeCharts: function() {
       self = app.dayTotalListView;
       self.chartCalorie = new google.visualization.ComboChart(document.getElementById('calorie-chart'));
@@ -73,6 +83,8 @@ $(function() {
         }
       };
 
+      //resize fires too frequently,
+      //let's wait till it ends to redraw the chart
       //create trigger to resizeEnd event
       $(window).resize(function() {
         if (this.resizeTO) clearTimeout(this.resizeTO);
@@ -91,6 +103,10 @@ $(function() {
       'change #weekpicker': 'weekChanged'
     },
 
+    /**
+     * Redraws the charts
+     * Call when window resizes
+     */
     redrawCharts: function() {
       if (self.dataCalorie.getNumberOfRows() > 0)
         self.chartCalorie.draw(self.dataCalorie, self.optionsCalorie);
@@ -98,12 +114,17 @@ $(function() {
         self.chartFat.draw(self.dataFat, self.optionsFat);
     },
 
-
-
-
+    /**
+     * Converts week picker's value to an array of YYYY-MM-DD
+     * @param: {string} week - week in YYYY-Www format.
+     **/
     convertWeekToDates: function(week) {
       var dates = [];
+
+      //get the year
       var y = week.slice(0, 4);
+
+      //get the week number
       var w = week.slice(6);
 
       //http://www.wufoo.com/html5/types/4-date.html
@@ -116,33 +137,51 @@ $(function() {
       //but let's keep it verbose so it is easy for bug fixing!
       var firstDayOfYear = new Date(y, 0, 1);
       var newYearDay = firstDayOfYear.getDay();
-      var w1start; //This is going to hold the first day of W1
 
-      if (newYearDay == 3) //Jan 1 was wednesday, week1 is the monday 2 days before
-        w1start = new Date(y - 1, 11, 30); //week 1 was dec 30th monday
+      //This is going to hold the first day of Week 1
+      var w1start;
 
-      if (newYearDay == 2) //Jan 1 was tuesday,
-        w1start = new Date(y - 1, 11, 31); //week1 is 31 Dec
+      //Jan 1 was Wednesday, week1 is the monday 2 days before
+      //week1 starts on dec 30th monday
+      if (newYearDay == 3)
+        w1start = new Date(y - 1, 11, 30);
 
-      if (newYearDay == 1) //Jan 1 was monday,
-        w1start = new Date(y, 0, 1); //week1 is 1st the monday
+      //Jan 1 was Tuesday,
+      //week1 starts on 31 Dec
+      if (newYearDay == 2)
+        w1start = new Date(y - 1, 11, 31);
 
-      if (newYearDay == 0) //new year sunday
-        w1start = new Date(y, 0, 2); //week1 starts on Jan 2 the monday
+      //Jan 1 was Monday,
+      //week1 starts on 1st the Monday
+      if (newYearDay == 1)
+        w1start = new Date(y, 0, 1);
 
-      if (newYearDay == 6) //new year is saturday
-        w1start = new Date(y, 0, 3); //week1 starts on Jan 3 the monday
+      //Jan 1 was Sunday
+      //week1 starts on Jan 2 the Monday
+      if (newYearDay == 0)
+        w1start = new Date(y, 0, 2);
 
-      if (newYearDay == 5) //new year is friday
-        w1start = new Date(y, 0, 4); //week1 starts on Jan 4 the monday
+      //Jan 1 was Saturday
+      //week1 starts on Jan 3 the Monday
+      if (newYearDay == 6)
+        w1start = new Date(y, 0, 3);
 
-      if (newYearDay == 4) //new year was a thursday
-        w1start = new Date(y - 1, 11, 29); //week1 starts on Dec 29th the monday
+      //Jan 1 was Friday
+      //week1 starts on Jan 4 the Monday
+      if (newYearDay == 5)
+        w1start = new Date(y, 0, 4);
+
+      //Jan 1 was Thursday
+      //week1 starts on Dec 29th the Monday
+      if (newYearDay == 4)
+        w1start = new Date(y - 1, 11, 29);
 
       //now add the weeks. valueOf gets milliseconds,
       //so convert the number of weeks to milliseconds
       //and add it to the first weeks monday
       var d = w1start.valueOf() + (w - 1) * 7 * 24 * 60 * 60 * 1000;
+
+      //we are going to return the 7 days of this week
       for (var i = 0; i < 7; i++) {
         //now convert these dates to the format of data in firebase
         dates.push(app.getFormattedDate(new Date(d)));
@@ -151,10 +190,12 @@ $(function() {
       return dates;
     },
 
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-
+    /**
+     * Handles the week changed events
+     * adds the new week's dates, and calorie totals to the calorie chart
+     * adds the new week's dates and fats to the fat chart
+     * then redraws both the charts
+     **/
     weekChanged: function() {
       self = this;
       var dates = this.convertWeekToDates(this.$weekpicker.val());
@@ -176,15 +217,18 @@ $(function() {
         var daytotal = app.dayTotalList.get(date);
         if (daytotal) {
           //slice just month and date for display
+          //it is just too crowded with year displayed in x axis
           var md = date.slice(5);
 
           var calorie = daytotal.get('calories');
           var fat = daytotal.get('fat');
 
+          //add data to calorie chart
           self.dataCalorie.addRows([
             [md, calorie, calorieNeeded]
           ]);
 
+          //add data to fat chart
           //each gram of fat is 9 kilocalories
           //https://en.wikipedia.org/wiki/Food_energy
           //20% to 35% of daily calories can come from fat.
@@ -194,6 +238,7 @@ $(function() {
         }
       });
 
+      //set the chart titles
       self.optionsCalorie.title = 'Calories for the week starting ' + dates[0];
       self.optionsFat.title = 'Fat calories for the week starting ' + dates[0];
 
@@ -204,17 +249,26 @@ $(function() {
       self.chartFat.draw(this.dataFat, self.optionsFat);
     },
 
+    /**
+     * Redraws the Summary tab
+     **/
     render: function() {
       // Returning the object is a good practice
       // that makes chaining possible
       return this;
     },
 
+    /**
+     * adds all data from Collection to the list
+     **/
     addAll: function() {
       this.$list.html('<tr><th>Date</th><th class="text-right">Calories</th><th class="text-right">Fat</th></tr>');
       this.collection.each(this.addOne, this);
     },
 
+    /**
+     * adds one row to the list
+     **/
     addOne: function(daytotal) {
       //since daytotallist is an autoSync collection, addAll doesnt get fired,
       //set the table header manually

@@ -3,9 +3,16 @@ var app = app || {};
 $(function() {
   'use strict';
 
+  /**
+   * View for the Calorie Needs tab
+   * Validates the inputs, and calculates the bmr, bmi and calorie needs
+   **/
   app.CalculatorView = Backbone.View.extend({
     el: '#profile-section',
 
+    /**
+     * Initializes the CalculatorView
+     **/
     initialize: function() {
       this.$rowAge = $('#rowAge');
       this.$rowWeight = $('#rowWeight');
@@ -75,6 +82,10 @@ $(function() {
       }
     },
 
+    /**
+     * Calculates BMI, BMR and calorie needs
+     **/
+
     calculate: function() {
       //men BMR = 66 + ( 6.2 x weight in pounds ) + ( 12.7 x height in inches ) – ( 6.76 x age in years )
       //women BMR = 655.1 + ( 4.35 x weight in pounds ) + ( 4.7 x height in inches ) - ( 4.7 x age in years )
@@ -98,6 +109,9 @@ $(function() {
 
     },
 
+    /**
+     * Saves the data to PersonDetails model
+     **/
     submit: function(event) {
       var age = Number(this.$formAge.val());
       var height = Number(this.$formHeight.val());
@@ -119,6 +133,9 @@ $(function() {
       event.preventDefault();
     },
 
+    /**
+     * Renders the contents of PersonDetails to the CalculatorView
+     **/
     render: function() {
       this.$formAge.val(this.model.get('age'));
       this.$formHeight.val(this.model.get('height'));

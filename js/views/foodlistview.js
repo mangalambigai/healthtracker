@@ -2,8 +2,17 @@ var app = app || {};
 
 $(function() {
   'use strict';
+
+  /**
+   * View for the list of food entries in 'Daily View' tab
+   **/
   app.FoodListView = Backbone.View.extend({
     el: '#daysection',
+
+    /**
+     * Initializes the view
+     * @param: {object} - has the date to start with
+     **/
     initialize: function(param) {
       this.$list = $('#foodlist');
       this.$date = $('#date');
@@ -31,6 +40,9 @@ $(function() {
       'click #addMore': 'addMore'
     },
 
+    /**
+     * Re-renders the list in 'Daily View'
+     **/
     render: function() {
       this.$date.html(this.date);
       this.$totalcalories.html(Math.round(this.collection.dailyTotalCalories()));
@@ -39,12 +51,18 @@ $(function() {
       return this;
     },
 
+    /**
+     * Shows the search view
+     **/
     addMore: function() {
       app.searchView.show();
     },
 
-    // Add a single item to the list by creating a view for it, and
-    // appending its element to the <ul>.
+    /**
+     * Adds a single item to the list by creating a view for it, and
+     * appending its element to the <table>.
+     * @param: {data}
+     **/
     addOne: function(data) {
       if (this.$list.html().trim().length == 0)
         this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
@@ -55,12 +73,18 @@ $(function() {
       this.$list.append(view.render().el);
     },
 
-    // Add all items in the collection at once.
+    /**
+     * Adds all items in the collection at once.
+     **/
     addAll: function() {
       this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
       this.collection.each(this.addOne, this);
     },
 
+    /**
+     * Creates a new Collection for the date
+     * @param: {string} date in the YYYY-MM-DD format
+     **/
     setDate: function(date) {
       this.date = date;
 
@@ -75,6 +99,7 @@ $(function() {
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
 
+//TODO: check: may be there is no need to create the date entry here!
       if (!app.dayTotalList.get(this.date))
         app.dayTotalList.create({
           id: this.date,
@@ -93,6 +118,11 @@ $(function() {
       console.log(collection);
     },
 
+    /**
+     * Adds a food from the search list to the current day's food entry list
+     * Also updates the total calories and fat in the daily total collection
+     * @param: {object} - Food item to add to the collection
+     **/
     addFood: function(searchmodel) {
       this.collection.create({
         brand_name: searchmodel.get('brand_name'),
@@ -103,6 +133,7 @@ $(function() {
         nf_serving_size_unit: searchmodel.get('nf_serving_size_unit'),
         nf_total_fat: searchmodel.get('nf_total_fat'),
       });
+
       app.dayTotalList.set({
         id: this.date,
         calories: this.collection.dailyTotalCalories(),

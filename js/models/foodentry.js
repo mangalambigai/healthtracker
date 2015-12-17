@@ -1,6 +1,9 @@
 var app = app || {};
 
 $(function() {
+  /**
+   * Model representing a single food entry in firebase
+   **/
   app.FoodEntry = Backbone.Model.extend({
 
     initialize: function() {

@@ -2,6 +2,10 @@ var app = app || {};
 
 $(function() {
   'use strict';
+
+  /**
+   * Represents a single food entry in the 'DailyView' tab
+   **/
   app.FoodEntryView = Backbone.View.extend({
 
     //... is a tr tag.
@@ -11,11 +15,16 @@ $(function() {
 
     events: {},
 
+    /**
+     * Initializes the food entry view
+     **/
     initialize: function() {
       this.listenTo(this.model, 'change', this.render);
     },
 
-    // Re-render the item.
+    /**
+     * Re-render the item
+     **/
     render: function() {
       if (this.model.changed.id !== undefined) {
         return;

@@ -2,6 +2,9 @@ var app = app || {};
 
 $(function() {
   'use strict';
+  /**
+   * Model representing a single search item from nutritionix
+   **/
   app.SearchItem = Backbone.Model.extend({
     item_name: '',
     nf_calories: 0,
