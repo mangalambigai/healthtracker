@@ -28,6 +28,8 @@ $(function() {
       this.$calorie = $('#calorie');
       this.$bmi = $('#bmi');
 
+      this.$submit = $('#submit');
+
       this.listenTo(this.model, 'change', this.render);
     },
 
@@ -46,11 +48,15 @@ $(function() {
       'click #submit': 'submit'
     },
 
+    /**
+     * Validates the age
+     **/
     validateAge: function(event) {
       var age = Number($(event.target).val());
       if (age < 1 || age > 100) {
         this.$rowAge.removeClass('has-success');
         this.$rowAge.addClass('has-error');
+        this.$submit.prop('disabled', true);
       } else {
         this.$rowAge.removeClass('has-error');
         this.$rowAge.addClass('has-success');
@@ -58,11 +64,15 @@ $(function() {
       }
     },
 
+    /**
+     * Validates Weight
+     */
     validateWeight: function() {
       var weight = Number($(event.target).val());
       if (weight < 1 || weight > 1000) {
         this.$rowWeight.removeClass('has-success');
         this.$rowWeight.addClass('has-error');
+        this.$submit.prop('disabled', true);
       } else {
         this.$rowWeight.removeClass('has-error');
         this.$rowWeight.addClass('has-success');
@@ -70,11 +80,15 @@ $(function() {
       }
     },
 
+    /**
+     * Validates Height
+     **/
     validateHeight: function() {
       var height = Number($(event.target).val());
       if (height < 1 || height > 100) {
         this.$rowHeight.removeClass('has-success');
         this.$rowHeight.addClass('has-error');
+        this.$submit.prop('disabled', true);
       } else {
         this.$rowHeight.removeClass('has-error');
         this.$rowHeight.addClass('has-success');
@@ -85,7 +99,6 @@ $(function() {
     /**
      * Calculates BMI, BMR and calorie needs
      **/
-
     calculate: function() {
       //men BMR = 66 + ( 6.2 x weight in pounds ) + ( 12.7 x height in inches ) – ( 6.76 x age in years )
       //women BMR = 655.1 + ( 4.35 x weight in pounds ) + ( 4.7 x height in inches ) - ( 4.7 x age in years )
@@ -101,12 +114,16 @@ $(function() {
         (66 + 6.2 * weight + 12.7 * height - 6.76 * age) :
         (655.1 + 4.35 * weight + 4.7 * height - 4.7 * age);
 
-      this.$bmi.html(bmi);
+      this.$bmi.html(Math.round(bmi));
       this.$bmr.html(Math.round(bmr));
 
       var calorie = bmr * activity;
       this.$calorie.html(Math.round(calorie));
 
+      if(age > 0 && age <= 100 && weight > 0 && weight <= 1000 && height > 0 && height <= 100)
+        this.$submit.prop('disabled', false);
+      else
+        this.$submit.prop('disabled', true);
     },
 
     /**
