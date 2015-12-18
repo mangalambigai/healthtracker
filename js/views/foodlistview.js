@@ -72,7 +72,7 @@ $(function() {
      * @param: {data}
      **/
     addOne: function(data) {
-      if (this.$list.html().trim().length == 0)
+      if (this.$list.html().trim().length === 0)
         this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
 
       var view = new app.FoodEntryView({

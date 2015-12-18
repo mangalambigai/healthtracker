@@ -143,37 +143,37 @@ $(function() {
 
       //Jan 1 was Wednesday, week1 is the monday 2 days before
       //week1 starts on dec 30th monday
-      if (newYearDay == 3)
+      if (newYearDay === 3)
         w1start = new Date(y - 1, 11, 30);
 
       //Jan 1 was Tuesday,
       //week1 starts on 31 Dec
-      if (newYearDay == 2)
+      if (newYearDay === 2)
         w1start = new Date(y - 1, 11, 31);
 
       //Jan 1 was Monday,
       //week1 starts on 1st the Monday
-      if (newYearDay == 1)
+      if (newYearDay === 1)
         w1start = new Date(y, 0, 1);
 
       //Jan 1 was Sunday
       //week1 starts on Jan 2 the Monday
-      if (newYearDay == 0)
+      if (newYearDay === 0)
         w1start = new Date(y, 0, 2);
 
       //Jan 1 was Saturday
       //week1 starts on Jan 3 the Monday
-      if (newYearDay == 6)
+      if (newYearDay === 6)
         w1start = new Date(y, 0, 3);
 
       //Jan 1 was Friday
       //week1 starts on Jan 4 the Monday
-      if (newYearDay == 5)
+      if (newYearDay === 5)
         w1start = new Date(y, 0, 4);
 
       //Jan 1 was Thursday
       //week1 starts on Dec 29th the Monday
-      if (newYearDay == 4)
+      if (newYearDay === 4)
         w1start = new Date(y - 1, 11, 29);
 
       //now add the weeks. valueOf gets milliseconds,

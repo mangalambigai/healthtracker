@@ -12,7 +12,7 @@ $(function() {
   app.getFormattedDate = function(date) {
 
     //getMonth returns 0 based index, so add 1
-    var m = (new Number(date.getMonth()) + 1);
+    var m = (Number(date.getMonth()) + 1);
 
     //if month < 10, add a padding 0
     if (m < 10)
@@ -28,7 +28,7 @@ $(function() {
   };
 
   // kick things off by creating the `App`
-  new app.AppView();
+  app.appView = new app.AppView();
 
   //load google chart
   google.charts.load('current', {
