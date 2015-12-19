@@ -22,3 +22,7 @@ body {
   max-width: 300px;
 }
 
+.form-control-static{
+  background-color: lightgray;
+  background-clip: content-box;
+}
