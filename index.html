@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <!-- /build -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
@@ -130,23 +131,35 @@
                 </label>
               </div>
               <section id="daysection">
-                <strong>
-              Total Calories for <span id="date"></span>:
-              <span id="totalcalories"></span>
-            </strong>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <label for="date">
+                      Total Calories for <span id="date" class="form-control-static"></span>:
+                      <span id="totalcalories" class="form-control-static"></span>
+                    </label>
+                  </div>
+                </form>
+                <button id="addMore" class="btn btn-primary">Add a food</button>
+                <i id="icon-loading-foodlist" class="hidden fa fa-spinner fa-spin fa-lg"></i>
+                <p id="text-error-foodlist" class="hidden">Error getting data.</p>
                 <table id="foodlist" class="table table-condensed table-hover">
                 </table>
-                <button id="addMore" class="btn btn-primary">Add a food</button>
               </section>
             </div>
 
             <div class="col-md-6 col-xs-12" id="searchsection">
 
               <section>
-                <label for="searchText" class="control-label"> Type in a food to find:
-                  <input type="text" id="searchText" class="form-control">
-                </label>
-                <button id="btnfind" class="btn btn-default">Get</button>
+                <form class"form-inline">
+                  <div class="form-group">
+                    <label for="searchText" class="control-label"> Type in a food to find:
+                      <input type="text" id="searchText" class="form-control">
+                    </label>
+                    <button id="submit" class="btn btn-primary">Get</button>
+                  </div>
+                </form>
+                <i id="icon-loading-search" class="hidden fa fa-spinner fa-spin fa-lg"></i>
+                <p id="text-error-search" class="hidden">Error getting data from Nutritionix.</p>
                 <table id="searchresultlist" class="table table-condensed table-hover">
                 </table>
               </section>

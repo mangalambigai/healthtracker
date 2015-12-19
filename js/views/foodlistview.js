@@ -8,7 +8,6 @@ $(function() {
    **/
   app.FoodListView = Backbone.View.extend({
     el: '#daysection',
-
     /**
      * Initializes the view
      * @param: {object} - has the date to start with
@@ -17,6 +16,13 @@ $(function() {
       this.$list = $('#foodlist');
       this.$date = $('#date');
       this.$totalcalories = $('#totalcalories');
+      this.$iconLd = $('#icon-loading-foodlist');
+      this.$textError = $('#text-error-foodlist');
+
+      this.thtext = '<tr><th>Item Name</th><th>Calories</th>' +
+        '<th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th>' +
+        '<th class="hidden-xs">Fat</th></tr>';
+
 
       this.date = param.date;
 
@@ -73,7 +79,7 @@ $(function() {
      **/
     addOne: function(data) {
       if (this.$list.html().trim().length === 0)
-        this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
+        this.$list.html(this.thtext);
 
       var view = new app.FoodEntryView({
         model: data
@@ -85,7 +91,7 @@ $(function() {
      * Adds all items in the collection at once.
      **/
     addAll: function() {
-      this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
+      this.$list.html(this.thtext);
       this.collection.each(this.addOne, this);
     },
 
@@ -94,9 +100,10 @@ $(function() {
      * @param: {string} date in the YYYY-MM-DD format
      **/
     setDate: function(date) {
+      this.$textError.addClass('hidden');
       this.date = date;
 
-      this.$list.html('<tr><th>Item Name</th><th>Calories</th><th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th><th class="hidden-xs">Fat</th></tr>');
+      this.$list.html(this.thtext);
       this.$totalcalories.html('');
       this.$date.html('');
 
@@ -107,23 +114,21 @@ $(function() {
       this.listenTo(this.collection, 'all', this.render);
       this.listenTo(this.collection, 'add', this.addOne);
 
-//TODO: check: may be there is no need to create the date entry here!
-      if (!app.dayTotalList.get(this.date))
-        app.dayTotalList.create({
-          id: this.date,
-          calories: 0
-        });
-      else
+      if (app.dayTotalList.get(this.date))
+      {
+        this.$iconLd.removeClass('hidden');
+        self = this;
         this.collection.fetch({
           reset: true,
-          error: this.fetchError
+          success: function() {
+            self.$iconLd.addClass('hidden');
+          },
+          error: function() {
+            this.iconLd.addClass('hidden');
+            self.$textError.removeClass('hidden');
+          }
         });
-    },
-
-    fetchError: function(collection, response, options) {
-      console.log(response);
-      console.log(options);
-      console.log(collection);
+      }
     },
 
     /**

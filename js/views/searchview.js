@@ -8,7 +8,6 @@ $(function() {
    **/
   app.SearchView = Backbone.View.extend({
     el: '#searchsection',
-    $el: $(this.el),
 
     /**
      * Initializes the SearchView
@@ -18,6 +17,9 @@ $(function() {
       this.$btnfind = $('#btnfind');
       this.$list = $('#searchresultlist');
       this.$header = $('#searchresult-header');
+      this.$iconLd = $('#icon-loading-search');
+      this.$textError = $('#text-error-search');
+
       this.collection = new app.SearchList();
       this.listenTo(this.collection, 'reset', this.addAll);
       this.listenTo(this.collection, 'all', this.render);
@@ -25,7 +27,7 @@ $(function() {
 
     // The DOM events specific to an item.
     events: {
-      'click #btnfind': 'findFoods'
+      'click #submit': 'findFoods'
     },
 
     /**
@@ -35,6 +37,7 @@ $(function() {
       this.$searchText.val('');
       this.$list.html('');
       this.$el.show();
+      this.$textError.addClass('hidden');
       this.$searchText.focus();
       //TODO: fix this, doesn't scrollIntoView!
       this.$searchText.get(0).scrollIntoView();
@@ -50,10 +53,22 @@ $(function() {
     /**
      * Fetches data from Nutritionix for the search text
      **/
-    findFoods: function() {
+    findFoods: function(event) {
+      var self = this;
+
+      event.preventDefault();
+      self.$textError.addClass('hidden');
+      this.$iconLd.removeClass('hidden');
       this.collection.setSearchString(this.$searchText.val());
       this.collection.fetch({
-        reset: true
+        reset: true,
+        success: function(collection, response, options) {
+          self.$iconLd.addClass('hidden');
+        },
+        error: function(collection, response, options) {
+          self.$iconLd.addClass('hidden');
+          self.$textError.removeClass('hidden');
+        }
       });
     },
 
@@ -83,7 +98,8 @@ $(function() {
      * Add all items in the collection at once.
      **/
     addAll: function() {
-      this.$list.html('<tr><th></th><th>Item Name</th><th>Calories</th><th>Quantity</th><th>Unit</th><th>Fat</th></tr>');
+      this.$list.html('<tr><th></th><th>Item Name</th><th>Calories</th>' +
+        '<th>Quantity</th><th>Unit</th><th>Fat</th></tr>');
       this.collection.each(this.addOne, this);
     }
   });
