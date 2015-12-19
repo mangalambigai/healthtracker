@@ -126,9 +126,11 @@
           <div class="row">
             <div class="col-md-6 col-xs-12">
               <div class="row">
-                <label for="dateinput" class="control-label">Choose a date:
-                  <input type="date" id="dateinput" class="form-control">
-                </label>
+                <div class="col-md-12">
+                  <label for="dateinput" class="control-label">Choose a date:
+                    <input type="date" id="dateinput" class="form-control">
+                  </label>
+                </div>
               </div>
               <section id="daysection">
                 <form class="form-inline">
@@ -139,11 +141,11 @@
                     </label>
                   </div>
                 </form>
-                <button id="addMore" class="btn btn-primary">Add a food</button>
                 <i id="icon-loading-foodlist" class="hidden fa fa-spinner fa-spin fa-lg"></i>
                 <p id="text-error-foodlist" class="hidden">Error getting data.</p>
                 <table id="foodlist" class="table table-condensed table-hover">
                 </table>
+                <button id="addMore" class="btn btn-primary">Add a food</button>
               </section>
             </div>
 
@@ -152,9 +154,8 @@
               <section>
                 <form class="form-inline">
                   <div class="form-group">
-                    <label for="searchText" class="control-label"> Type in a food to find:
-                      <input type="text" id="searchText" class="form-control">
-                    </label>
+                    <label for="searchText" class="control-label"> Type in a food to find:</label>
+                    <input type="text" id="searchText" class="form-control">
                     <button id="submit" class="btn btn-primary">Get</button>
                   </div>
                 </form>
