@@ -9,8 +9,6 @@ $(function() {
    **/
   app.DayTotalListView = Backbone.View.extend({
 
-    self: this,
-
     el: $('#daytotal-section'),
 
     /**
@@ -33,6 +31,8 @@ $(function() {
      * Rows are not loaded yet.
      **/
     initializeCharts: function() {
+      //This function doesn't get dayTotalListView as this.
+      //It is called when google charts is loaded.
       self = app.dayTotalListView;
       self.chartCalorie = new google.visualization.ComboChart(document.getElementById('calorie-chart'));
       self.chartFat = new google.visualization.ComboChart(document.getElementById('fat-chart'));
@@ -95,7 +95,7 @@ $(function() {
 
       //redraw graph when window resize is completed
       $(window).on('resizeEnd', function() {
-        self.redrawCharts();
+        self.redrawCharts(self);
       });
     },
 
@@ -107,7 +107,7 @@ $(function() {
      * Redraws the charts
      * Call when window resizes
      */
-    redrawCharts: function() {
+    redrawCharts: function(self) {
       if (self.dataCalorie.getNumberOfRows() > 0)
         self.chartCalorie.draw(self.dataCalorie, self.optionsCalorie);
       if (self.dataFat.getNumberOfRows() > 0)
