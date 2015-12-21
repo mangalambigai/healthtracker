@@ -26,3 +26,11 @@ body {
   background-color: lightgray;
   background-clip: content-box;
 }
+
+tr .btn-xs {
+  visibility: hidden;
+}
+
+tr:hover .btn-xs {
+  visibility: visible;
+}
