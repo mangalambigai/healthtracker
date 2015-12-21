@@ -13,13 +13,22 @@ $(function() {
 
     template: _.template($('#foodentry-template').html()),
 
-    events: {},
+    events: {
+      'click #btndel': 'deleteItem'
+    },
 
     /**
      * Initializes the food entry view
      **/
     initialize: function() {
       this.listenTo(this.model, 'change', this.render);
+    },
+
+    /**
+     * Deletes the food Item
+     **/
+    deleteItem: function() {
+      app.foodListView.removeFood(this.model);
     },
 
     /**

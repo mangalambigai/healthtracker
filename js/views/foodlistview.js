@@ -21,7 +21,7 @@ $(function() {
 
       this.thtext = '<tr><th>Item Name</th><th>Calories</th>' +
         '<th class="hidden-xs">Quantity</th><th  class="hidden-xs">Unit</th>' +
-        '<th class="hidden-xs">Fat</th></tr>';
+        '<th class="hidden-xs">Fat</th><th></th></tr>';
 
 
       this.date = param.date;
@@ -145,7 +145,7 @@ $(function() {
         nf_serving_size_qty: searchmodel.get('nf_serving_size_qty'),
         nf_serving_size_unit: searchmodel.get('nf_serving_size_unit'),
         nf_total_fat: searchmodel.get('nf_total_fat'),
-      });
+      }, {wait: true});
 
       app.dayTotalList.set({
         id: this.date,
@@ -153,6 +153,30 @@ $(function() {
         fat: this.collection.dailyTotalFat()
       }, {
         remove: false
+      });
+    },
+
+    removeFood: function(model) {
+      this.collection.remove(model);
+      model.destroy();
+      app.dayTotalList.set({
+        id: this.date,
+        calories: this.collection.dailyTotalCalories(),
+        fat: this.collection.dailyTotalFat()
+      }, {
+        remove: false
+      });
+
+      self = this;
+      this.collection.fetch({
+        reset: true,
+        success: function() {
+          self.$iconLd.addClass('hidden');
+        },
+        error: function() {
+          this.iconLd.addClass('hidden');
+          self.$textError.removeClass('hidden');
+        }
       });
     }
   });
