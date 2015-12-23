@@ -145,11 +145,11 @@
                     </strong>
                   </div>
                   <div class="panel-body">
-                  <i id="icon-loading-foodlist" class="hidden fa fa-spinner fa-spin fa-lg"></i>
-                  <p id="text-error-foodlist" class="hidden">Error getting data.</p>
-                  <table id="foodlist" class="table table-condensed table-striped table-hover">
-                  </table>
-                  <button id="addMore" class="btn btn-primary">Add a food</button>
+                    <i id="icon-loading-foodlist" class="hidden fa fa-spinner fa-spin fa-lg"></i>
+                    <p id="text-error-foodlist" class="hidden">Error getting data.</p>
+                    <table id="foodlist" class="table table-condensed table-striped table-hover">
+                    </table>
+                    <button id="addMore" class="btn btn-primary">Add a food</button>
                   </div>
                 </div>
               </section>
@@ -158,17 +158,23 @@
             <div class="col-md-6 col-xs-12" id="searchsection">
 
               <section>
-                <form class="form-inline">
-                  <div class="form-group">
-                    <label for="searchText" class="control-label"> Type in a food to find:</label>
-                    <input type="text" id="searchText" class="form-control">
-                    <button id="submit" class="btn btn-primary">Get</button>
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    Search food to add
                   </div>
-                </form>
-                <i id="icon-loading-search" class="hidden fa fa-spinner fa-spin fa-lg"></i>
-                <p id="text-error-search" class="hidden">Error getting data from Nutritionix.</p>
-                <table id="searchresultlist" class="table table-condensed table-hover">
-                </table>
+                  <div class="panel-body">
+                    <form>
+                      <label for="searchText" class="control-label"> Search:
+                        <input type="text" id="searchText">
+                      </label>
+                      <button id="submit" class="btn btn-primary">Get</button>
+                    </form>
+                    <i id="icon-loading-search" class="hidden fa fa-spinner fa-spin fa-lg"></i>
+                    <p id="text-error-search" class="hidden">Error getting data from Nutritionix.</p>
+                    <table id="searchresultlist" class="table table-condensed table-hover table-striped">
+                    </table>
+                  </div>
+                </div>
               </section>
 
               <footer id="footer">
