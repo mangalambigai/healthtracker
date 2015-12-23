@@ -127,25 +127,31 @@
             <div class="col-md-6 col-xs-12">
               <div class="row">
                 <div class="col-md-12">
-                  <label for="dateinput" class="control-label">Choose a date:
+                  <form class="form-inline">
+                    <div class="form-group">
+                      <label for="dateinput" class="control-label">Choose a date:
+                      </label>
+                    </div>
                     <input type="date" id="dateinput" class="form-control">
-                  </label>
+                  </form>
                 </div>
               </div>
               <section id="daysection">
-                <form class="form-inline">
-                  <div class="form-group">
-                    <label for="date">
-                      Total Calories for <span id="date" class="form-control-static"></span>:
-                      <span id="totalcalories" class="form-control-static"></span>
-                    </label>
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <strong>
+                      Total Calories for <span id="date"></span>:
+                      <span id="totalcalories"></span>
+                    </strong>
                   </div>
-                </form>
-                <i id="icon-loading-foodlist" class="hidden fa fa-spinner fa-spin fa-lg"></i>
-                <p id="text-error-foodlist" class="hidden">Error getting data.</p>
-                <table id="foodlist" class="table table-condensed table-hover">
-                </table>
-                <button id="addMore" class="btn btn-primary">Add a food</button>
+                  <div class="panel-body">
+                  <i id="icon-loading-foodlist" class="hidden fa fa-spinner fa-spin fa-lg"></i>
+                  <p id="text-error-foodlist" class="hidden">Error getting data.</p>
+                  <table id="foodlist" class="table table-condensed table-striped table-hover">
+                  </table>
+                  <button id="addMore" class="btn btn-primary">Add a food</button>
+                  </div>
+                </div>
               </section>
             </div>
 
